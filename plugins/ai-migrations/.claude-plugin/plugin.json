@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "Tools for migrating skills, agents, and configurations between AI platforms — Claude Code and GitHub Copilot.",
   "author": {
-    "name": "Ivan Melchenko & Andrey Robeshko",
+    "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan"
   },
-  "homepage": "https://github.com/MelchenkoIvan/ai-toolkit",
-  "repository": "https://github.com/MelchenkoIvan/ai-toolkit",
+  "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-cloud",
+  "repository": "https://github.com/MelchenkoIvan/ai-toolkit-cloud",
   "license": "MIT",
   "keywords": ["migration", "skills", "copilot", "claude", "platform"],
   "skills": "./skills/",
@@ -15,7 +15,7 @@
     "displayName": "AI Migrations",
     "shortDescription": "Migrate skills and agents between Claude Code and GitHub Copilot.",
     "longDescription": "Bidirectional migration tools for AI platform assets. Move skills, instruction files, and agent definitions between GitHub Copilot and Claude Code without losing content or dependencies.",
-    "developerName": "Ivan Melchenko & Andrey Robeshko",
+    "developerName": "Ivan Melchenko & Andrei Rabeshka",
     "category": "Productivity",
     "capabilities": ["Write", "Read"]
   }

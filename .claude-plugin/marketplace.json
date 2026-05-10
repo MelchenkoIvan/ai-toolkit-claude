@@ -1,10 +1,10 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "ai-toolkit",
+  "name": "ai-toolkit-cloud",
   "description": "AI skill plugins for developer workflows, pitch presentations, and team collaboration.",
   "owner": {
-    "name": "Ivan Melchenko & Andrey Robeshko",
-    "url": "https://github.com/MelchenkoIvan/ai-toolkit"
+    "name": "Ivan Melchenko & Andrei Rabeshka",
+    "url": "https://github.com/MelchenkoIvan/ai-toolkit-cloud"
   },
   "plugins": [
     {
