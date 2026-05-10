@@ -9,7 +9,7 @@ description: >
   the target platform. Both source and target versions always coexist — nothing is
   deleted. Use this skill whenever the user says: "migrate skill to Claude",
   "port skill to Copilot", "convert this skill for Claude Code", "make this Copilot
-  skill work in Claude", "migrate skill from Claude", "/migrate-skill", or asks to
+  skill work in Claude", "migrate skill from Claude", "/ai-migrations:copilot-claude-migrate", or asks to
   move/copy/convert any skill between the two platforms.
 ---
 

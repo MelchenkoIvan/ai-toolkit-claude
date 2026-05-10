@@ -15,12 +15,12 @@ ai-toolkit/
 │   └── marketplace.json          ← Claude Code marketplace registry
 ├── plugins/                      ← Claude Code plugins (one dir per plugin)
 │   ├── workflows/
-│   │   ├── .codex-plugin/
+│   │   ├── .claude-plugin/
 │   │   │   └── plugin.json       ← plugin manifest
 │   │   ├── skills/<name>/SKILL.md
 │   │   └── agents/<name>.agent.md
 │   └── presentation/
-│       ├── .codex-plugin/
+│       ├── .claude-plugin/
 │       │   └── plugin.json
 │       └── skills/<name>/SKILL.md
 ├── skills/                       ← Copilot skills (gh skill install target)
@@ -74,7 +74,7 @@ No changes to `marketplace.json` needed for adding skills to existing plugins.
 ## How to add a new plugin
 
 1. Create `plugins/<plugin-name>/` directory
-2. Create `plugins/<plugin-name>/.codex-plugin/plugin.json` — copy from existing plugin, update fields
+2. Create `plugins/<plugin-name>/.claude-plugin/plugin.json` — copy from existing plugin, update fields
 3. Create `plugins/<plugin-name>/skills/` and `plugins/<plugin-name>/agents/` dirs
 4. Add entry to `.claude-plugin/marketplace.json` under `"plugins"` array:
 
