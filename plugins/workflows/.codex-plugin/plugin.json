@@ -1,0 +1,23 @@
+{
+  "name": "workflows",
+  "version": "0.1.0",
+  "description": "Developer workflow automation — implement tasks from GitHub issues, solve bugs, migrate skills between platforms.",
+  "author": {
+    "name": "Ivan Melchenko & Andrey Robeshko",
+    "url": "https://github.com/MelchenkoIvan"
+  },
+  "homepage": "https://github.com/MelchenkoIvan/ai-toolkit",
+  "repository": "https://github.com/MelchenkoIvan/ai-toolkit",
+  "license": "MIT",
+  "keywords": ["productivity", "workflows", "developer", "automation"],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "interface": {
+    "displayName": "Workflows",
+    "shortDescription": "Implement tasks, solve issues, migrate skills.",
+    "longDescription": "Developer workflow automation skills: implement GitHub issues into code, solve bugs end-to-end, migrate skills between Claude Code and Copilot.",
+    "developerName": "Ivan Melchenko & Andrey Robeshko",
+    "category": "Productivity",
+    "capabilities": ["Write", "Read"]
+  }
+}

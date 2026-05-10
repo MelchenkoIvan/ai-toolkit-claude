@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ai-toolkit",
+  "description": "AI skill plugins for developer workflows, pitch presentations, and team collaboration.",
+  "owner": {
+    "name": "Ivan Melchenko & Andrey Robeshko",
+    "url": "https://github.com/MelchenkoIvan/ai-toolkit"
+  },
+  "plugins": [
+    {
+      "name": "workflows",
+      "description": "Developer workflow automation — implement tasks, solve issues, migrate skills.",
+      "source": "./plugins/workflows",
+      "category": "productivity"
+    },
+    {
+      "name": "presentation",
+      "description": "Pitch and planning skills — pitch presentations, analyse and plan.",
+      "source": "./plugins/presentation",
+      "category": "productivity"
+    }
+  ]
+}
