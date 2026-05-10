@@ -18,6 +18,12 @@
       "description": "Pitch and planning skills — pitch presentations, analyse and plan.",
       "source": "./plugins/presentation",
       "category": "productivity"
+    },
+    {
+      "name": "ai-migrations",
+      "description": "Migrate skills and agents bidirectionally between Claude Code and GitHub Copilot.",
+      "source": "./plugins/ai-migrations",
+      "category": "productivity"
     }
   ]
 }
