@@ -55,7 +55,7 @@ Ask before proceeding if skill name or direction is missing.
 
 ### Step 1 — Locate source
 
-Source root: `{workflows_local}/.github/skills/<name>/`
+Source root: `<repo-root>/.github/skills/<name>/` (where `<repo-root>` is the project root, found via `git rev-parse --show-toplevel`).
 
 Read `SKILL.md`. List all other files in the directory.
 If `SKILL.md` not found, stop and report.
@@ -66,7 +66,7 @@ Scan the source SKILL.md for references to:
 - `.github/instructions/` — collect every referenced `.instructions.md` filename
 - `.github/agents/` — collect every referenced `.agent.md` filename
 
-For each referenced file, check if it exists in `{workflows_local}`. Collect the
+For each referenced file, check if it exists under the repo root. Collect the
 full list before proceeding — you'll migrate them in Step 4.
 
 ### Step 3 — Determine target scope
@@ -75,13 +75,13 @@ If the user specified `global` or `project`, use that.
 
 Otherwise, auto-detect from source content:
 
-**Project-level** (`.claude/skills/<name>/` inside this repo) if the skill body references
-any of: `{workflows_local}`, `{repos_root}`, `{worktrees_root}`, BiznestOrg repo names
-(`Shops.API`, `Users.API`, `EasyManagementMobile`, etc.), `biznest-developer`,
-`biznest-reviewer`, or `.github/instructions/`.
+**Project-level** (`.claude/skills/<name>/` inside the repo) if the skill body references
+any of: project-relative paths (e.g., paths under the repo root), project-specific agents
+defined in `.github/agents/`, project-specific instruction files in `.github/instructions/`,
+or hardcoded project / org / repo names that only make sense inside this codebase.
 
-**Global** (`~/.claude/skills/<name>/`) if the skill is a general-purpose utility
-with no BiznestOrg-specific references.
+**Global** (`~/.claude/skills/<name>/`) if the skill is a general-purpose utility with no
+project-specific references — i.e., it would work the same in any repo.
 
 Tell the user the detected scope and dependency list. Let them override before writing.
 
@@ -114,10 +114,10 @@ Copilot delegates via named agents (`task` tool). Claude uses the `Agent` tool.
 
 | Copilot pattern | Claude equivalent |
 |---|---|
-| `task` → `biznest-developer` (`claude-sonnet-4.6`) | `Agent`, `subagent_type: "general-purpose"`, `model: "sonnet"` |
-| `task` → `biznest-reviewer` (`gpt-5.3-codex`) | `Agent`, `subagent_type: "caveman:cavecrew-reviewer"`, `model: "sonnet"` |
+| `task` → developer-style implementation agent (`claude-sonnet-4-6` or similar) | `Agent`, `subagent_type: "general-purpose"`, `model: "sonnet"` |
+| `task` → reviewer-style code-review agent (`gpt-5.3-codex` or similar) | `Agent`, `subagent_type: "general-purpose"`, `model: "sonnet"` (read the bundled `reviewer.agent.md` and pass as system prompt) |
 | `explore` sub-agents | `Agent`, `subagent_type: "Explore"`, `model: "haiku"` |
-| Any Copilot agent using a model you judge as "orchestrator / complex reasoning" | `model: "opus"` |
+| Any Copilot agent you judge as "orchestrator / complex reasoning" | `model: "opus"` |
 
 **If the Copilot agent has a `.github/agents/<name>.agent.md` definition:**
 After migrating the file to `.claude/agents/<name>.md` (Step 5), update the Agent call
@@ -164,21 +164,21 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 #### Path placeholders
 
-Keep `{repos_root}`, `{worktrees_root}`, `{workflows_local}` unchanged.
+Keep any project-specific path placeholders (e.g., `{repo_root}`, `{worktrees_root}`) unchanged — they are resolved at runtime by the project, not the skill.
 
-#### BiznestOrg ecosystem content
+#### Project-specific content
 
-Keep all BiznestOrg-specific knowledge unchanged.
+Keep project-specific knowledge (repo names, business domain, internal conventions) unchanged when migrating between platforms. The skill stays tied to the project; only the platform syntax changes.
 
 ### Step 5 — Migrate dependencies
 
 **Instruction files:** For each `.github/instructions/<file>.instructions.md` found in Step 2:
-- Target: `{workflows_local}/.claude/instructions/<file>.md`
+- Target: `<repo-root>/.claude/instructions/<file>.md`
 - Copy content as-is (instructions are platform-agnostic prose).
 - Create the directory if it doesn't exist.
 
 **Agent files:** For each `.github/agents/<name>.agent.md` found in Step 2:
-- Target: `{workflows_local}/.claude/agents/<name>.md`
+- Target: `<repo-root>/.claude/agents/<name>.md`
 - Copy content as-is.
 - Create the directory if it doesn't exist.
 - Note: in Claude Code the agent file is the system prompt; the calling skill reads it
@@ -193,7 +193,7 @@ Scripts, references, and assets are platform-agnostic.
 
 Create target directory if needed, write adapted SKILL.md and all copied supporting files.
 
-**Project-level:** `{workflows_local}/.claude/skills/<name>/`
+**Project-level:** `<repo-root>/.claude/skills/<name>/`
 **Global:** `~/.claude/skills/<name>/`
 
 ### Step 8 — Report
@@ -201,7 +201,7 @@ Create target directory if needed, write adapted SKILL.md and all copied support
 ```
 ✅ Skill migrated: Copilot → Claude
 
-Source:  {workflows_local}/.github/skills/<name>/SKILL.md
+Source:  <repo-root>/.github/skills/<name>/SKILL.md
 Target:  <target-path>/SKILL.md
 Scope:   <global | project-level>
 
@@ -229,7 +229,7 @@ Dependencies migrated:
 
 Check both locations (in order):
 1. Global: `~/.claude/skills/<name>/SKILL.md`
-2. Project-level: `{workflows_local}/.claude/skills/<name>/SKILL.md`
+2. Project-level: `<repo-root>/.claude/skills/<name>/SKILL.md`
 
 If found in both, ask which to use. If neither, stop and report.
 
@@ -243,7 +243,7 @@ Check if each file exists. Collect before proceeding.
 
 ### Step 3 — Check target
 
-Target: `{workflows_local}/.github/skills/<name>/SKILL.md`
+Target: `<repo-root>/.github/skills/<name>/SKILL.md`
 
 If already exists, warn and ask:
 - **Overwrite**
@@ -273,9 +273,9 @@ If already exists, warn and ask:
 
 | Claude pattern | Copilot equivalent |
 |---|---|
-| `Agent`, `subagent_type: "general-purpose"`, `model: "sonnet"` | `task` → `biznest-developer`, `model="claude-sonnet-4-6"` |
-| `Agent`, `subagent_type: "general-purpose"`, `model: "opus"` | `task` → `biznest-developer`, `model="claude-opus-4-7"` |
-| `Agent`, `subagent_type: "caveman:cavecrew-reviewer"` | `task` → `biznest-reviewer`, `model="gpt-5.3-codex"` |
+| `Agent`, `subagent_type: "general-purpose"`, `model: "sonnet"` | `task` → developer-style implementation agent, `model="claude-sonnet-4-6"` |
+| `Agent`, `subagent_type: "general-purpose"`, `model: "opus"` | `task` → developer-style implementation agent, `model="claude-opus-4-7"` |
+| `Agent`, `subagent_type: "general-purpose"` (with reviewer system prompt) | `task` → reviewer-style code-review agent, `model="gpt-5.3-codex"` |
 | `Agent`, `subagent_type: "Explore"` | `explore` sub-agents |
 
 Preserve context-package content. Preserve parallelism instructions.
@@ -328,11 +328,11 @@ Keep all placeholders unchanged.
 ### Step 5 — Migrate dependencies
 
 **Instruction files:** For each `.claude/instructions/<file>.md` found in Step 2:
-- Target: `{workflows_local}/.github/instructions/<file>.instructions.md`
+- Target: `<repo-root>/.github/instructions/<file>.instructions.md`
 - Copy content as-is.
 
 **Agent files:** For each `.claude/agents/<name>.md` found in Step 2:
-- Target: `{workflows_local}/.github/agents/<name>.agent.md`
+- Target: `<repo-root>/.github/agents/<name>.agent.md`
 - Copy content as-is (the system prompt becomes the agent definition).
 
 ### Step 6 — Copy skill's supporting files
@@ -341,7 +341,7 @@ Copy all non-SKILL.md files from the source skill directory to `.github/skills/<
 
 ### Step 7 — Write target skill
 
-Create `{workflows_local}/.github/skills/<name>/` if needed, write adapted SKILL.md and
+Create `<repo-root>/.github/skills/<name>/` if needed, write adapted SKILL.md and
 all copied files.
 
 ### Step 8 — Report
@@ -350,7 +350,7 @@ all copied files.
 ✅ Skill migrated: Claude → Copilot
 
 Source:  <source-path>/SKILL.md
-Target:  {workflows_local}/.github/skills/<name>/SKILL.md
+Target:  <repo-root>/.github/skills/<name>/SKILL.md
 
 Adaptations made:
 - Description simplified to 1-2 sentence tooltip
@@ -373,7 +373,7 @@ Dependencies migrated:
 ## Rules
 
 1. **Never delete the source.** Both versions always coexist after migration.
-2. **Preserve path placeholders.** `{repos_root}`, `{worktrees_root}`, `{workflows_local}` unchanged in both directions.
+2. **Preserve path placeholders.** Project-specific placeholders (e.g., `{repo_root}`, `{worktrees_root}`) stay unchanged in both directions — they are resolved at runtime by the project, not the skill.
 3. **Preserve agent context packages.** Full prompt detail must survive — only wrapping syntax changes.
 4. **Migrate dependencies.** Always check for and migrate referenced instruction and agent files. Never migrate the skill alone if it has dependencies.
 5. **Flag what you can't cleanly translate.** List it in the manual review section.

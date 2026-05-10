@@ -1,7 +1,7 @@
 {
   "name": "presentation",
   "version": "0.1.0",
-  "description": "Pitch and planning skills — create pitch presentations, analyse problems and produce implementation plans.",
+  "description": "Pitch presentation skills — create pitch decks in Google Slides.",
   "author": {
     "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan"
@@ -9,12 +9,12 @@
   "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-cloud",
   "repository": "https://github.com/MelchenkoIvan/ai-toolkit-cloud",
   "license": "MIT",
-  "keywords": ["productivity", "presentation", "planning", "pitch"],
+  "keywords": ["productivity", "presentation", "pitch"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Presentation",
-    "shortDescription": "Pitch decks and planning skills.",
-    "longDescription": "Create pitch presentations in Google Slides and produce structured implementation plans from requirements.",
+    "shortDescription": "Pitch deck creation skill.",
+    "longDescription": "Create pitch presentations in Google Slides from a problem description and target audience.",
     "developerName": "Ivan Melchenko & Andrei Rabeshka",
     "category": "Productivity",
     "capabilities": ["Write", "Read"]
