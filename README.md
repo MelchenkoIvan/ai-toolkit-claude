@@ -2,7 +2,7 @@
 
 AI skill plugins for Claude Code and GitHub Copilot.
 
-**Authors:** Ivan Melchenko ([@MelchenkoIvan](https://github.com/MelchenkoIvan)), Andrey Robeshko
+**Authors:** Ivan Melchenko ([@MelchenkoIvan](https://github.com/MelchenkoIvan)), Andrei Rabeshka
 
 ---
 
