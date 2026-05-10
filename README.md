@@ -17,13 +17,13 @@ Then install individual plugins:
 ```bash
 /plugin install workflows@ai-toolkit
 /plugin install presentation@ai-toolkit
+/plugin install ai-migrations@ai-toolkit
 ```
 
 ## GitHub Copilot — install individual skills
 
 ```bash
-gh skill install MelchenkoIvan/ai-toolkit/skills/workflows
-gh skill install MelchenkoIvan/ai-toolkit/skills/presentation
+gh skill install MelchenkoIvan/ai-toolkit/skills/copilot-claude-migrate
 ```
 
 ---
@@ -32,8 +32,9 @@ gh skill install MelchenkoIvan/ai-toolkit/skills/presentation
 
 | Plugin | Description | Skills |
 |--------|-------------|--------|
-| `workflows` | Developer workflow automation | `implement-task`, `solve-issue`, `migrate-skill` |
+| `workflows` | Developer workflow automation | `implement-task`, `solve-issue`, `copilot-claude-migrate` |
 | `presentation` | Pitch and planning skills | `pitch-presentation`, `analyse-and-plan` |
+| `ai-migrations` | Platform migration tools | `copilot-claude-migrate` |
 
 ## Agents
 

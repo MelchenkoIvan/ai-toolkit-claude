@@ -1,5 +1,5 @@
 ---
-name: migrate-skill
+name: copilot-claude-migrate
 description: >
   Migrates skills bidirectionally between GitHub Copilot and Claude Code formats.
   Copilot skills live in .github/skills/NAME/SKILL.md; Claude skills live in

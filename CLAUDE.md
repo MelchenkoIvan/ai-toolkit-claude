@@ -118,9 +118,11 @@ Keep both in sync.
 # Claude Code — install a plugin
 /plugin install workflows@ai-toolkit
 /plugin install presentation@ai-toolkit
+/plugin install ai-migrations@ai-toolkit
 
 # Copilot — install individual skill
 gh skill install MelchenkoIvan/ai-toolkit/skills/implement-task
+gh skill install MelchenkoIvan/ai-toolkit/skills/copilot-claude-migrate
 ```
 
 ---
