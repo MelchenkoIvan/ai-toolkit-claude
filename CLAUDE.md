@@ -4,13 +4,14 @@ Guidance for Claude Code when working in this repository.
 
 ## What this repo is
 
-Plugin marketplace for Claude Code and skill distribution hub for GitHub Copilot.
-Skills live in two surfaces — keep both in sync when adding content.
+Plugin marketplace for Claude Code. Skills live in `plugins/<plugin-name>/skills/`.
+
+For Copilot skills, see [ai-toolkit-copilot](https://github.com/MelchenkoIvan/ai-toolkit-copilot).
 
 ## Repository structure
 
 ```
-ai-toolkit/
+ai-toolkit-cloud/
 ├── .claude-plugin/
 │   └── marketplace.json          ← Claude Code marketplace registry
 ├── plugins/                      ← Claude Code plugins (one dir per plugin)
@@ -19,14 +20,14 @@ ai-toolkit/
 │   │   │   └── plugin.json       ← plugin manifest
 │   │   ├── skills/<name>/SKILL.md
 │   │   └── agents/<name>.agent.md
-│   └── presentation/
+│   ├── presentation/
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   └── skills/<name>/SKILL.md
+│   └── ai-migrations/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       └── skills/<name>/SKILL.md
-├── skills/                       ← Copilot skills (gh skill install target)
-│   └── <name>/SKILL.md
-├── agents/                       ← Copilot agents
-│   └── <name>.agent.md
 ├── README.md
 ├── LICENSE
 └── CLAUDE.md                     ← this file
@@ -40,8 +41,9 @@ ai-toolkit/
 |--------|---------|
 | `workflows` | Developer automation: implement, solve, migrate |
 | `presentation` | Pitch decks, planning, analysis |
+| `ai-migrations` | Platform migration tools |
 
-Add new plugin dir under `plugins/` if neither fits. See "Adding a new plugin" below.
+Add new plugin dir under `plugins/` if none fits. See "Adding a new plugin" below.
 
 ### Step 2 — Add to Claude Code plugin surface
 
@@ -60,12 +62,7 @@ description: >
 
 No other files needed unless skill has supporting scripts.
 
-### Step 3 — Add to Copilot skill surface
-
-Create identical `skills/<skill-name>/SKILL.md` (same content, same frontmatter).
-This is the install target for `gh skill install MelchenkoIvan/ai-toolkit/skills/<skill-name>`.
-
-### Step 4 — Done
+### Step 3 — Done
 
 No changes to `marketplace.json` needed for adding skills to existing plugins.
 
@@ -91,12 +88,7 @@ No changes to `marketplace.json` needed for adding skills to existing plugins.
 
 ## How to add an agent
 
-Two surfaces:
-
-- **Claude Code (within plugin):** `plugins/<plugin-name>/agents/<name>.agent.md`
-- **Copilot (root-level):** `agents/<name>.agent.md`
-
-Keep both in sync.
+Claude Code agents live in `plugins/<plugin-name>/agents/<name>.agent.md`.
 
 ---
 
@@ -113,20 +105,16 @@ Keep both in sync.
 
 ```bash
 # Claude Code — add this repo as marketplace
-/plugin marketplace add MelchenkoIvan/ai-toolkit
+/plugin marketplace add MelchenkoIvan/ai-toolkit-cloud
 
 # Claude Code — install a plugin
-/plugin install workflows@ai-toolkit
-/plugin install presentation@ai-toolkit
-/plugin install ai-migrations@ai-toolkit
-
-# Copilot — install individual skill
-gh skill install MelchenkoIvan/ai-toolkit/skills/implement-task
-gh skill install MelchenkoIvan/ai-toolkit/skills/copilot-claude-migrate
+/plugin install workflows@ai-toolkit-cloud
+/plugin install presentation@ai-toolkit-cloud
+/plugin install ai-migrations@ai-toolkit-cloud
 ```
 
 ---
 
 ## Authors
 
-Ivan Melchenko ([@MelchenkoIvan](https://github.com/MelchenkoIvan)), Andrey Robeshko
+Ivan Melchenko ([@MelchenkoIvan](https://github.com/MelchenkoIvan)), Andrei Rabeshka

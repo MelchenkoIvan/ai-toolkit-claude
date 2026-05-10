@@ -1,6 +1,6 @@
-# ai-toolkit
+# ai-toolkit-cloud
 
-AI skill plugins for Claude Code and GitHub Copilot.
+AI skill plugins for Claude Code.
 
 **Authors:** Ivan Melchenko ([@MelchenkoIvan](https://github.com/MelchenkoIvan)), Andrei Rabeshka
 
@@ -9,21 +9,15 @@ AI skill plugins for Claude Code and GitHub Copilot.
 ## Claude Code — install as marketplace
 
 ```bash
-/plugin marketplace add MelchenkoIvan/ai-toolkit
+/plugin marketplace add MelchenkoIvan/ai-toolkit-cloud
 ```
 
 Then install individual plugins:
 
 ```bash
-/plugin install workflows@ai-toolkit
-/plugin install presentation@ai-toolkit
-/plugin install ai-migrations@ai-toolkit
-```
-
-## GitHub Copilot — install individual skills
-
-```bash
-gh skill install MelchenkoIvan/ai-toolkit/skills/copilot-claude-migrate
+/plugin install workflows@ai-toolkit-cloud
+/plugin install presentation@ai-toolkit-cloud
+/plugin install ai-migrations@ai-toolkit-cloud
 ```
 
 ---
@@ -42,6 +36,12 @@ gh skill install MelchenkoIvan/ai-toolkit/skills/copilot-claude-migrate
 |-------|-------------|
 | `developer` | Implementation agent — writes code, creates PRs |
 | `reviewer` | Code review agent — read-only, structured feedback |
+
+---
+
+## GitHub Copilot
+
+For Copilot skills, see [ai-toolkit-copilot](https://github.com/MelchenkoIvan/ai-toolkit-copilot).
 
 ---
 
