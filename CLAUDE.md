@@ -11,7 +11,7 @@ For Copilot skills, see [ai-toolkit-copilot](https://github.com/MelchenkoIvan/ai
 ## Repository structure
 
 ```
-ai-toolkit-cloud/
+ai-toolkit-claude/
 ├── .claude-plugin/
 │   └── marketplace.json          ← Claude Code marketplace registry
 ├── plugins/                      ← Claude Code plugins (one dir per plugin)
@@ -105,12 +105,12 @@ Claude Code agents live in `plugins/<plugin-name>/agents/<name>.agent.md`.
 
 ```bash
 # Claude Code — add this repo as marketplace
-/plugin marketplace add MelchenkoIvan/ai-toolkit-cloud
+/plugin marketplace add MelchenkoIvan/ai-toolkit-claude
 
 # Claude Code — install a plugin
-/plugin install workflows@ai-toolkit-cloud
-/plugin install presentation@ai-toolkit-cloud
-/plugin install ai-migrations@ai-toolkit-cloud
+/plugin install workflows@ai-toolkit-claude
+/plugin install presentation@ai-toolkit-claude
+/plugin install ai-migrations@ai-toolkit-claude
 ```
 
 ---

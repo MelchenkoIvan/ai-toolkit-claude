@@ -1,4 +1,4 @@
-# ai-toolkit-cloud
+# ai-toolkit-claude
 
 AI skill plugins for Claude Code.
 
@@ -9,15 +9,15 @@ AI skill plugins for Claude Code.
 ## Claude Code — install as marketplace
 
 ```bash
-/plugin marketplace add MelchenkoIvan/ai-toolkit-cloud
+/plugin marketplace add MelchenkoIvan/ai-toolkit-claude
 ```
 
 Then install individual plugins:
 
 ```bash
-/plugin install workflows@ai-toolkit-cloud
-/plugin install presentation@ai-toolkit-cloud
-/plugin install ai-migrations@ai-toolkit-cloud
+/plugin install workflows@ai-toolkit-claude
+/plugin install presentation@ai-toolkit-claude
+/plugin install ai-migrations@ai-toolkit-claude
 ```
 
 ---

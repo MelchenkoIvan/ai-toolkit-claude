@@ -6,8 +6,8 @@
     "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan"
   },
-  "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-cloud",
-  "repository": "https://github.com/MelchenkoIvan/ai-toolkit-cloud",
+  "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
+  "repository": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "license": "MIT",
   "keywords": ["productivity", "workflows", "developer", "automation", "planning", "github"],
   "skills": "./skills/",
