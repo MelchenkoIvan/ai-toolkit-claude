@@ -1,0 +1,18 @@
+[
+  { "query": "create an agent that reviews my terraform plans before apply", "should_trigger": true },
+  { "query": "can you add a subagent to the workflows plugin that summarizes failing CI logs", "should_trigger": true },
+  { "query": "I need something that runs autonomously to triage new github issues and label them — make it a delegate the orchestrator can call", "should_trigger": true },
+  { "query": "scaffold an agent file with the right frontmatter for a code reviewer", "should_trigger": true },
+  { "query": "write me a background worker that watches a folder and converts images — i want claude to spin it up as its own thing with a system prompt", "should_trigger": true },
+  { "query": "make a new agent.md for a security analyzer, read-only, opus model", "should_trigger": true },
+  { "query": "I keep delegating 'check the migration is safe' manually — turn that into a reusable agent", "should_trigger": true },
+  { "query": "set up an autonomous helper that writes PR descriptions from a pushed branch", "should_trigger": true },
+  { "query": "what model should I use for my agent, opus or sonnet?", "should_trigger": false },
+  { "query": "why isn't my existing reviewer agent triggering when I open a PR? the description seems fine", "should_trigger": false },
+  { "query": "create a slash command /deploy that I run manually to push to staging", "should_trigger": false },
+  { "query": "build me a python script that polls an API every 5 minutes", "should_trigger": false },
+  { "query": "add a new skill to the presentation plugin for pitch decks", "should_trigger": false },
+  { "query": "explain how claude code subagents differ from skills", "should_trigger": false },
+  { "query": "the developer agent keeps modifying unrelated files, how do I tighten its rules?", "should_trigger": false },
+  { "query": "register this agent in the marketplace.json so it shows up", "should_trigger": false }
+]

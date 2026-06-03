@@ -1,0 +1,51 @@
+{
+  "skill_name": "create-agent",
+  "description": "Behavior evals — given a request, does the skill produce a valid, well-formed Claude Code agent file?",
+  "evals": [
+    {
+      "id": 1,
+      "name": "readonly-security-agent",
+      "prompt": "Create an agent that scans a repo for hardcoded secrets and credentials and reports findings. It should never modify files, just read and report.",
+      "expected_output": "A file agents/<name>.agent.md with valid frontmatter (name, description, model, color, tools) where tools are read-only (no Write/Edit), a 'When to invoke' section with 2-4 prose scenarios, an output contract, and a Rules section that includes a never-modify boundary.",
+      "files": [],
+      "assertions": [
+        { "text": "Output is a single Markdown file named agents/<name>.agent.md", "passed": null, "evidence": "" },
+        { "text": "Frontmatter contains all five keys: name, description, model, color, tools", "passed": null, "evidence": "" },
+        { "text": "name is lowercase, hyphen-separated, 3-50 chars, starts and ends alphanumeric", "passed": null, "evidence": "" },
+        { "text": "tools array is read-only — contains no Write or Edit", "passed": null, "evidence": "" },
+        { "text": "description states triggering conditions and names 2-4 scenarios", "passed": null, "evidence": "" },
+        { "text": "Body has a 'When to invoke' section with 2-4 prose bullet scenarios", "passed": null, "evidence": "" },
+        { "text": "Body defines an output contract (what the agent returns)", "passed": null, "evidence": "" },
+        { "text": "Rules section includes a never-modify-files boundary", "passed": null, "evidence": "" },
+        { "text": "System prompt is written in second person (\"You are...\")", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "code-generation-agent",
+      "prompt": "I want a subagent that takes a function and writes unit tests for it, then runs them until they pass. Put it in the workflows plugin.",
+      "expected_output": "An agent file saved under plugins/workflows/agents/ with tools that allow writing code and running tests (Write/Edit + Bash), an input contract describing what the agent receives, a process with iterate-until-green logic, and an output contract.",
+      "files": [],
+      "assertions": [
+        { "text": "File saved under plugins/workflows/agents/", "passed": null, "evidence": "" },
+        { "text": "tools include Bash (to run tests) and Write or Edit (to author tests)", "passed": null, "evidence": "" },
+        { "text": "Body defines an input contract (what the agent is given)", "passed": null, "evidence": "" },
+        { "text": "Process describes running tests and iterating until they pass", "passed": null, "evidence": "" },
+        { "text": "description names 2-4 trigger scenarios and points to 'When to invoke'", "passed": null, "evidence": "" },
+        { "text": "model is one of inherit/opus/sonnet/haiku", "passed": null, "evidence": "" },
+        { "text": "color is one of blue/cyan/green/yellow/magenta/red", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "skill-not-agent-redirect",
+      "prompt": "Create an agent I can run with /changelog that I trigger manually to generate a changelog from recent commits.",
+      "expected_output": "The skill recognizes this is a user-triggered slash command (a skill), not an autonomous agent, and surfaces the distinction — either redirecting to creating a skill or explicitly confirming the user still wants an agent before scaffolding one.",
+      "files": [],
+      "assertions": [
+        { "text": "Response flags that a manually-triggered /command is a skill, not an agent", "passed": null, "evidence": "" },
+        { "text": "Does not silently scaffold an agent without surfacing the skill-vs-agent distinction", "passed": null, "evidence": "" }
+      ]
+    }
+  ]
+}
