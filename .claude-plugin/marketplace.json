@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "ai-toolkit-claude",
-  "description": "AI skill plugins for developer workflows, pitch presentations, and team collaboration.",
+  "description": "AI skill plugins for Claude Code — agent creation and platform migration.",
   "owner": {
     "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan/ai-toolkit-claude"
@@ -9,14 +9,8 @@
   "plugins": [
     {
       "name": "workflows",
-      "description": "Developer workflow automation — implement tasks, solve issues, migrate skills.",
+      "description": "Developer workflow automation — create agents.",
       "source": "./plugins/workflows",
-      "category": "productivity"
-    },
-    {
-      "name": "presentation",
-      "description": "Pitch and planning skills — pitch presentations, analyse and plan.",
-      "source": "./plugins/presentation",
       "category": "productivity"
     },
     {

@@ -18,11 +18,6 @@ ai-toolkit-claude/
 │   ├── workflows/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json       ← plugin manifest
-│   │   ├── skills/<name>/SKILL.md
-│   │   └── agents/<name>.agent.md
-│   ├── presentation/
-│   │   ├── .claude-plugin/
-│   │   │   └── plugin.json
 │   │   └── skills/<name>/SKILL.md
 │   └── ai-migrations/
 │       ├── .claude-plugin/
@@ -39,8 +34,7 @@ ai-toolkit-claude/
 
 | Plugin | Purpose |
 |--------|---------|
-| `workflows` | Developer automation: implement, solve, migrate |
-| `presentation` | Pitch decks, planning, analysis |
+| `workflows` | Developer automation: create agents |
 | `ai-migrations` | Platform migration tools |
 
 Add new plugin dir under `plugins/` if none fits. See "Adding a new plugin" below.
@@ -109,7 +103,6 @@ Claude Code agents live in `plugins/<plugin-name>/agents/<name>.agent.md`.
 
 # Claude Code — install a plugin
 /plugin install workflows@ai-toolkit-claude
-/plugin install presentation@ai-toolkit-claude
 /plugin install ai-migrations@ai-toolkit-claude
 ```
 

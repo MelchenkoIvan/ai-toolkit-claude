@@ -1,7 +1,7 @@
 {
   "name": "workflows",
   "version": "0.1.0",
-  "description": "Developer workflow automation — implement tasks from GitHub issues, solve bugs, analyse problems and plan.",
+  "description": "Developer workflow automation — create custom Claude Code agents.",
   "author": {
     "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan"
@@ -9,13 +9,12 @@
   "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "repository": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "license": "MIT",
-  "keywords": ["productivity", "workflows", "developer", "automation", "planning", "github"],
+  "keywords": ["productivity", "workflows", "developer", "automation", "agents"],
   "skills": "./skills/",
-  "agents": "./agents/",
   "interface": {
     "displayName": "Workflows",
-    "shortDescription": "Implement tasks, solve issues, analyse and plan.",
-    "longDescription": "Developer workflow automation skills: implement GitHub issues into code, solve bugs end-to-end, analyse problems and produce structured implementation plans.",
+    "shortDescription": "Create custom Claude Code agents.",
+    "longDescription": "Developer workflow automation skills: scaffold and refine custom Claude Code agent definitions.",
     "developerName": "Ivan Melchenko & Andrei Rabeshka",
     "category": "Productivity",
     "capabilities": ["Write", "Read"]
