@@ -1,0 +1,45 @@
+{
+  "skill_name": "dotnet-dev",
+  "description": "Behavior evals — with the skill loaded, does C#/.NET output follow the pattern and testing conventions in references/?",
+  "evals": [
+    {
+      "id": 1,
+      "name": "new-service-conventions",
+      "prompt": "Add a DiscountService to this ASP.NET Core solution that calculates a customer's discount from their order history. It needs the order repository and should be usable from the checkout controller.",
+      "expected_output": "A service class with constructor-injected IOrderRepository, an IDiscountService interface, async methods with Async suffix and CancellationToken, DI registration, no service locator, no sync-over-async.",
+      "files": [],
+      "assertions": [
+        { "text": "Dependencies arrive via constructor injection (no IServiceProvider lookups, no new-ing repositories)", "passed": null, "evidence": "" },
+        { "text": "Async methods have Async suffix and accept CancellationToken", "passed": null, "evidence": "" },
+        { "text": "No .Result/.Wait()/GetAwaiter().GetResult() sync-over-async", "passed": null, "evidence": "" },
+        { "text": "Service registered in DI with an appropriate lifetime", "passed": null, "evidence": "" },
+        { "text": "Naming follows C# conventions (PascalCase members, IThing interface)", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "xunit-moq-test-conventions",
+      "prompt": "Write unit tests for the existing OrderService.CreateOrderAsync method: it should throw OutOfStockException when stock is zero and save the order when stock is available.",
+      "expected_output": "An OrderServiceTests class using xUnit + Moq, Arrange-Act-Assert structure, MethodName_Condition_ExpectedResult names, mocked IOrderRepository, Verify only on the interaction under test.",
+      "files": [],
+      "assertions": [
+        { "text": "Tests use xUnit ([Fact]/[Theory]) with Arrange-Act-Assert structure", "passed": null, "evidence": "" },
+        { "text": "Test names follow MethodName_Condition_ExpectedResult", "passed": null, "evidence": "" },
+        { "text": "Repository mocked via Moq against its interface", "passed": null, "evidence": "" },
+        { "text": "Async tests return Task (no async void)", "passed": null, "evidence": "" },
+        { "text": "Verify used only for the interaction that is the point of the test", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "theory-over-copy-paste",
+      "prompt": "Add tests covering that our email validator rejects empty strings, strings without @, and strings without a domain, and accepts a normal address.",
+      "expected_output": "A single [Theory] with [InlineData] rows for the input/expected pairs — not four copy-pasted [Fact] methods.",
+      "files": [],
+      "assertions": [
+        { "text": "Uses [Theory] + [InlineData] instead of duplicated [Fact]s", "passed": null, "evidence": "" },
+        { "text": "Covers all four requested cases", "passed": null, "evidence": "" }
+      ]
+    }
+  ]
+}

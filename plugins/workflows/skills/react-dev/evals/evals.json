@@ -1,0 +1,45 @@
+{
+  "skill_name": "react-dev",
+  "description": "Behavior evals — with the skill loaded, does React/TS output follow the component and testing conventions in references/?",
+  "evals": [
+    {
+      "id": 1,
+      "name": "new-component-conventions",
+      "prompt": "Add a SearchBar component to this React + TypeScript app. It takes a placeholder and an onSearch callback, and calls onSearch with the input value when the user presses Enter.",
+      "expected_output": "A function component in SearchBar.tsx with a typed props interface, destructured props, no any, semantic input element with an accessible label, no class component, no speculative memoization.",
+      "files": [],
+      "assertions": [
+        { "text": "Function component (no class component)", "passed": null, "evidence": "" },
+        { "text": "Props defined as an explicit TypeScript interface", "passed": null, "evidence": "" },
+        { "text": "No `any` types in new code", "passed": null, "evidence": "" },
+        { "text": "Input has an accessible identity (label, aria-label, or role)", "passed": null, "evidence": "" },
+        { "text": "No useMemo/useCallback/React.memo without a stated reason", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "rtl-test-conventions",
+      "prompt": "Write tests for the existing LoginForm component: it should show a validation error when the email field is empty on submit, and call onSubmit with the credentials when both fields are filled.",
+      "expected_output": "A co-located LoginForm.test.tsx using React Testing Library with role/label queries, userEvent interactions, queryBy* for absence assertions, and behavior-stating test names.",
+      "files": [],
+      "assertions": [
+        { "text": "Test file co-located and named *.test.tsx", "passed": null, "evidence": "" },
+        { "text": "Queries use getByRole/getByLabelText, not getByTestId as primary", "passed": null, "evidence": "" },
+        { "text": "Interactions use userEvent (not bare fireEvent)", "passed": null, "evidence": "" },
+        { "text": "No assertions on component internals (state, hook calls)", "passed": null, "evidence": "" },
+        { "text": "Test names describe observable behavior", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "no-useeffect-derived-state",
+      "prompt": "In this component, add a total price display that updates whenever the items array prop changes.",
+      "expected_output": "Total computed during render (plain derivation or useMemo only if measured/needed) — not mirrored into useState via useEffect.",
+      "files": [],
+      "assertions": [
+        { "text": "Derived value computed during render, not stored in useState via useEffect", "passed": null, "evidence": "" },
+        { "text": "No new effect introduced for pure data transformation", "passed": null, "evidence": "" }
+      ]
+    }
+  ]
+}

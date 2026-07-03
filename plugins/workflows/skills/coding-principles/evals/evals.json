@@ -1,0 +1,42 @@
+{
+  "skill_name": "coding-principles",
+  "description": "Behavior evals — with the skill loaded, does generated/refactored code follow DRY / KISS / YAGNI, naming, error-handling, and scope rules?",
+  "evals": [
+    {
+      "id": 1,
+      "name": "refactor-duplicated-logic",
+      "prompt": "This module has three functions that each re-implement the same price-rounding logic with slightly different variable names. Refactor the module to clean it up.",
+      "expected_output": "Extracts the shared rounding logic into one helper (rule of three satisfied), keeps behavior identical, uses intent-revealing names, and touches nothing unrelated to the duplication.",
+      "files": [],
+      "assertions": [
+        { "text": "Shared logic extracted into a single named helper", "passed": null, "evidence": "" },
+        { "text": "No unrelated code changed beyond the duplicated logic", "passed": null, "evidence": "" },
+        { "text": "New names are intent-revealing (no single letters or numbered suffixes)", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "no-speculative-generality",
+      "prompt": "Add a function that converts a temperature from Celsius to Fahrenheit for our weather widget.",
+      "expected_output": "A single small function that does the one conversion asked for — no unit-system abstraction layer, no config options, no extra conversions 'for later'.",
+      "files": [],
+      "assertions": [
+        { "text": "Implements only the requested conversion (no plugin/config/abstraction layer)", "passed": null, "evidence": "" },
+        { "text": "No new dependencies introduced", "passed": null, "evidence": "" },
+        { "text": "Function name is a verb phrase stating intent", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "error-handling-quality",
+      "prompt": "Write a function that reads a JSON config file from a given path and returns the parsed settings.",
+      "expected_output": "Errors are handled meaningfully: missing file and malformed JSON produce contextual error messages; no empty catch blocks; no catch-log-rethrow at every layer.",
+      "files": [],
+      "assertions": [
+        { "text": "No silently swallowed errors (no empty catch blocks)", "passed": null, "evidence": "" },
+        { "text": "Error messages include context (path attempted, what failed)", "passed": null, "evidence": "" },
+        { "text": "Distinguishes environmental failure (missing file) from bad input (malformed JSON)", "passed": null, "evidence": "" }
+      ]
+    }
+  ]
+}

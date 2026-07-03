@@ -25,7 +25,7 @@ Then install individual plugins:
 
 | Plugin | Description | Skills |
 |--------|-------------|--------|
-| `workflows` | Developer workflow automation — create agents, ship git changes | `create-agent`, `git-ship` |
+| `workflows` | Developer workflow automation — create agents, ship git changes, implement + test features per stack | `create-agent`, `git-ship`, `coding-principles`, `react-dev`, `dotnet-dev` |
 | `ai-migrations` | Platform migration tools | `copilot-claude-migrate` |
 
 ---

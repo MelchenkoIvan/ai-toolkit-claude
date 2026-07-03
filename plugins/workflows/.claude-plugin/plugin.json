@@ -1,7 +1,7 @@
 {
   "name": "workflows",
-  "version": "0.2.0",
-  "description": "Developer workflow automation — create custom Claude Code agents and ship git changes end-to-end (branch, Conventional Commit, push, PR).",
+  "version": "0.4.0",
+  "description": "Developer workflow automation — create custom Claude Code agents, ship git changes end-to-end (branch, Conventional Commit, push, PR), and implement + test features via stack-aware developer and tester agents backed by React/.NET convention skills and universal coding principles.",
   "author": {
     "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan"
@@ -9,12 +9,13 @@
   "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "repository": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "license": "MIT",
-  "keywords": ["productivity", "workflows", "developer", "automation", "agents", "git", "commit", "pull-request"],
+  "keywords": ["productivity", "workflows", "developer", "automation", "agents", "git", "commit", "pull-request", "react", "dotnet", "coding-principles", "testing"],
   "skills": "./skills/",
+  "agents": "./agents/",
   "interface": {
     "displayName": "Workflows",
-    "shortDescription": "Create custom Claude Code agents and ship git changes end-to-end.",
-    "longDescription": "Developer workflow automation skills: scaffold and refine custom Claude Code agent definitions, and ship working-tree changes from dirty tree to open PR (branch naming, Conventional Commits, base-branch sync, push, PR/MR).",
+    "shortDescription": "Create agents, ship git changes end-to-end, and implement + test features with stack-aware conventions.",
+    "longDescription": "Developer workflow automation skills and agents: scaffold and refine custom Claude Code agent definitions, ship working-tree changes from dirty tree to open PR (branch naming, Conventional Commits, base-branch sync, push, PR/MR), and implement and test coding tasks via stack-aware developer and tester agents that route to React/TypeScript or .NET/C# convention skills plus universal coding principles (DRY, KISS, YAGNI).",
     "developerName": "Ivan Melchenko & Andrei Rabeshka",
     "category": "Productivity",
     "capabilities": ["Write", "Read", "Bash"]
