@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Did not commit on the base branch",
+      "passed": true,
+      "evidence": "fix/skip-null-items-in-total"
+    },
+    {
+      "text": "Branch uses fix/ prefix",
+      "passed": true,
+      "evidence": "fix/skip-null-items-in-total"
+    },
+    {
+      "text": "Conventional Commit fix",
+      "passed": true,
+      "evidence": "fix(util): skip null items when summing total"
+    },
+    {
+      "text": "Pushed to origin",
+      "passed": true,
+      "evidence": "upstream set"
+    },
+    {
+      "text": "Attempted PR / compare-URL fallback",
+      "passed": true,
+      "evidence": "no-host fallback reported"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "git-ship",
+  "evals": [
+    {
+      "id": 1,
+      "name": "feature-on-main-new-branch",
+      "prompt": "commit my changes",
+      "expected_output": "Creates a feat/ branch (not committing on main), a feat(...) Conventional Commit, pushes, opens a draft PR/MR or prints compare URL.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "bugfix-on-main-fix-branch",
+      "prompt": "ship it",
+      "expected_output": "Recognizes a bug fix, creates a fix/ branch, fix(...) commit subject, pushes, opens PR.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "reuse-existing-topic-branch",
+      "prompt": "push my changes and open a PR",
+      "expected_output": "Stays on the existing feat/user-profile branch (no new branch per commit), commits the new work, pushes, opens PR.",
+      "files": []
+    }
+  ]
+}

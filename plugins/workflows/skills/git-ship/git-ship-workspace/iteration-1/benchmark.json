@@ -1,0 +1,303 @@
+{
+  "metadata": {
+    "skill_name": "git-ship",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-07-03T18:15:52Z",
+    "evals_run": [
+      1,
+      2,
+      3
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 51.4,
+        "tokens": 16317,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Did not commit on the base branch",
+          "passed": true,
+          "evidence": "ended on feat/add-login, not main"
+        },
+        {
+          "text": "Branch uses feat/ prefix",
+          "passed": true,
+          "evidence": "feat/add-login"
+        },
+        {
+          "text": "Commit follows Conventional Commits (feat)",
+          "passed": true,
+          "evidence": "feat(auth): add login with token issuance"
+        },
+        {
+          "text": "Pushed branch to origin",
+          "passed": true,
+          "evidence": "origin/feat/add-login exists, upstream set"
+        },
+        {
+          "text": "Attempted PR or surfaced compare-URL fallback",
+          "passed": true,
+          "evidence": "gh refused local host; reported manual PR against main"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 52.0,
+        "tokens": 16304,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Did not commit on the base branch",
+          "passed": true,
+          "evidence": "on fix/ignore-null-entries-in-total"
+        },
+        {
+          "text": "Branch uses fix/ prefix",
+          "passed": true,
+          "evidence": "fix/ignore-null-entries-in-total"
+        },
+        {
+          "text": "Commit follows Conventional Commits (fix)",
+          "passed": true,
+          "evidence": "fix(util): ignore null entries in total"
+        },
+        {
+          "text": "Pushed branch to origin",
+          "passed": true,
+          "evidence": "origin/fix/ignore-null-entries-in-total, upstream set"
+        },
+        {
+          "text": "Attempted PR or surfaced compare-URL fallback",
+          "passed": true,
+          "evidence": "reported draft PR against main via fallback"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 56.8,
+        "tokens": 16444,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Stayed on existing feat/user-profile branch",
+          "passed": true,
+          "evidence": "did not create a new branch"
+        },
+        {
+          "text": "Commit follows Conventional Commits",
+          "passed": true,
+          "evidence": "feat(profile): add avatar url helper"
+        },
+        {
+          "text": "Pushed branch to origin",
+          "passed": true,
+          "evidence": "origin/feat/user-profile updated, upstream set"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.2,
+        "passed": 1,
+        "failed": 4,
+        "total": 5,
+        "time_seconds": 35.4,
+        "tokens": 11281,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Did not commit on the base branch",
+          "passed": true,
+          "evidence": "created add-login branch"
+        },
+        {
+          "text": "Branch uses feat/ prefix",
+          "passed": false,
+          "evidence": "branch named add-login, no feat/ prefix"
+        },
+        {
+          "text": "Commit follows Conventional Commits (feat)",
+          "passed": false,
+          "evidence": "'Add login function' \u2014 not conventional"
+        },
+        {
+          "text": "Pushed branch to origin",
+          "passed": false,
+          "evidence": "upstream NONE; only origin/main on remote \u2014 never pushed"
+        },
+        {
+          "text": "Attempted PR or surfaced compare-URL fallback",
+          "passed": false,
+          "evidence": "stopped at local commit; no push, no PR"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 49.3,
+        "tokens": 12748,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Did not commit on the base branch",
+          "passed": true,
+          "evidence": "on fix/total-skip-null"
+        },
+        {
+          "text": "Branch uses fix/ prefix",
+          "passed": true,
+          "evidence": "fix/total-skip-null"
+        },
+        {
+          "text": "Commit follows Conventional Commits (fix)",
+          "passed": true,
+          "evidence": "fix: skip null and undefined items in total()"
+        },
+        {
+          "text": "Pushed branch to origin",
+          "passed": true,
+          "evidence": "origin/fix/total-skip-null, upstream set"
+        },
+        {
+          "text": "Attempted PR or surfaced compare-URL fallback",
+          "passed": true,
+          "evidence": "reported gh pr create path once hosted"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 44.5,
+        "tokens": 12227,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Stayed on existing feat/user-profile branch",
+          "passed": true,
+          "evidence": "did not create a new branch"
+        },
+        {
+          "text": "Commit follows Conventional Commits",
+          "passed": true,
+          "evidence": "feat(profile): add avatar helper with default fallback"
+        },
+        {
+          "text": "Pushed branch to origin",
+          "passed": true,
+          "evidence": "origin/feat/user-profile updated"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 53.4,
+        "stddev": 2.9597,
+        "min": 51.4,
+        "max": 56.8
+      },
+      "tokens": {
+        "mean": 16355.0,
+        "stddev": 77.3499,
+        "min": 16304,
+        "max": 16444
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.7333,
+        "stddev": 0.4619,
+        "min": 0.2,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 43.0667,
+        "stddev": 7.06,
+        "min": 35.4,
+        "max": 49.3
+      },
+      "tokens": {
+        "mean": 12085.3333,
+        "stddev": 743.6897,
+        "min": 11281,
+        "max": 12748
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.27",
+      "time_seconds": "+10.3",
+      "tokens": "+4270"
+    }
+  },
+  "notes": []
+}

@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Did not commit on the base branch",
+      "passed": true,
+      "evidence": "feat/add-login"
+    },
+    {
+      "text": "Branch uses feat/ prefix",
+      "passed": true,
+      "evidence": "feat/add-login"
+    },
+    {
+      "text": "Conventional Commit feat",
+      "passed": true,
+      "evidence": "feat: add login function"
+    },
+    {
+      "text": "Pushed to origin",
+      "passed": false,
+      "evidence": "stopped at local commit; not pushed"
+    },
+    {
+      "text": "Attempted PR / compare-URL fallback",
+      "passed": false,
+      "evidence": "no push, no PR"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.6,
+    "passed": 3,
+    "failed": 2,
+    "total": 5
+  }
+}

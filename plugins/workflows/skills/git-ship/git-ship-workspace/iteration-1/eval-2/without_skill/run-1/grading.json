@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Did not commit on the base branch",
+      "passed": true,
+      "evidence": "on fix/total-skip-null"
+    },
+    {
+      "text": "Branch uses fix/ prefix",
+      "passed": true,
+      "evidence": "fix/total-skip-null"
+    },
+    {
+      "text": "Commit follows Conventional Commits (fix)",
+      "passed": true,
+      "evidence": "fix: skip null and undefined items in total()"
+    },
+    {
+      "text": "Pushed branch to origin",
+      "passed": true,
+      "evidence": "origin/fix/total-skip-null, upstream set"
+    },
+    {
+      "text": "Attempted PR or surfaced compare-URL fallback",
+      "passed": true,
+      "evidence": "reported gh pr create path once hosted"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  }
+}

@@ -34,7 +34,7 @@ ai-toolkit-claude/
 
 | Plugin | Purpose |
 |--------|---------|
-| `workflows` | Developer automation: create agents |
+| `workflows` | Developer automation: create agents, ship git changes (branch/commit/push/PR) |
 | `ai-migrations` | Platform migration tools |
 
 Add new plugin dir under `plugins/` if none fits. See "Adding a new plugin" below.

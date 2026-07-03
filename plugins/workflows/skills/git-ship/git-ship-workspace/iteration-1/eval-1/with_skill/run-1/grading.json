@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Did not commit on the base branch",
+      "passed": true,
+      "evidence": "ended on feat/add-login, not main"
+    },
+    {
+      "text": "Branch uses feat/ prefix",
+      "passed": true,
+      "evidence": "feat/add-login"
+    },
+    {
+      "text": "Commit follows Conventional Commits (feat)",
+      "passed": true,
+      "evidence": "feat(auth): add login with token issuance"
+    },
+    {
+      "text": "Pushed branch to origin",
+      "passed": true,
+      "evidence": "origin/feat/add-login exists, upstream set"
+    },
+    {
+      "text": "Attempted PR or surfaced compare-URL fallback",
+      "passed": true,
+      "evidence": "gh refused local host; reported manual PR against main"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Committed the local work",
+      "passed": true,
+      "evidence": "docs: edit README from feature branch"
+    },
+    {
+      "text": "Detected the base advanced AND predicted a conflict",
+      "passed": true,
+      "evidence": "noticed origin/main changed same README line"
+    },
+    {
+      "text": "Did NOT attempt/resolve the rebase itself",
+      "passed": true,
+      "evidence": "no rebase attempted"
+    },
+    {
+      "text": "Did NOT push \u2014 handed control back",
+      "passed": true,
+      "evidence": "not pushed"
+    },
+    {
+      "text": "Asked the user how to proceed (offered options)",
+      "passed": false,
+      "evidence": "just noted conflict; did not ask or offer options"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.8,
+    "passed": 4,
+    "failed": 1,
+    "total": 5
+  }
+}

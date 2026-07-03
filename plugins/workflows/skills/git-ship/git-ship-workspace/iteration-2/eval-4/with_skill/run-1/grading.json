@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Committed the work as a Conventional Commit",
+      "passed": true,
+      "evidence": "feat(search): add search query normalizer"
+    },
+    {
+      "text": "Fetched and detected the base branch had advanced",
+      "passed": true,
+      "evidence": "origin/main ahead by 1 (docs: add changelog)"
+    },
+    {
+      "text": "Auto-rebased onto the base because merge was conflict-free (no prompt)",
+      "passed": true,
+      "evidence": "merge-tree exit 0; rebased silently"
+    },
+    {
+      "text": "Branch is now 0 commits behind base (synced)",
+      "passed": true,
+      "evidence": "divergence 0 1; commit sits atop changelog commit"
+    },
+    {
+      "text": "Pushed the synced branch",
+      "passed": true,
+      "evidence": "origin/feat/add-search exists"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  }
+}

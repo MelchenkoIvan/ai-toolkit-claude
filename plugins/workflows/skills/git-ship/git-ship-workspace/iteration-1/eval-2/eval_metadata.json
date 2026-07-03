@@ -1,0 +1,7 @@
+{"eval_id":2,"eval_name":"bugfix-on-main-fix-branch","prompt":"ship it",
+ "assertions":[
+  {"text":"Did not commit on the base branch (ended on a topic branch)"},
+  {"text":"Branch name uses the fix/ prefix"},
+  {"text":"Commit subject follows Conventional Commits with a fix type"},
+  {"text":"Pushed the branch to origin"},
+  {"text":"Attempted PR or surfaced compare-URL fallback"}]}

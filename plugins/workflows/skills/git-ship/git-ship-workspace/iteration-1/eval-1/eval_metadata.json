@@ -1,0 +1,7 @@
+{"eval_id":1,"eval_name":"feature-on-main-new-branch","prompt":"commit my changes",
+ "assertions":[
+  {"text":"Did not commit on the base branch (ended on a topic branch, not main/master)"},
+  {"text":"Branch name uses the feat/ prefix"},
+  {"text":"Commit subject follows Conventional Commits with a feat type"},
+  {"text":"Pushed the branch to origin (remote topic branch exists)"},
+  {"text":"Attempted to open a PR or surfaced the compare-URL fallback"}]}

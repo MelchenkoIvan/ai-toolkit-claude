@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Did not commit on the base branch",
+      "passed": true,
+      "evidence": "created add-login branch"
+    },
+    {
+      "text": "Branch uses feat/ prefix",
+      "passed": false,
+      "evidence": "branch named add-login, no feat/ prefix"
+    },
+    {
+      "text": "Commit follows Conventional Commits (feat)",
+      "passed": false,
+      "evidence": "'Add login function' \u2014 not conventional"
+    },
+    {
+      "text": "Pushed branch to origin",
+      "passed": false,
+      "evidence": "upstream NONE; only origin/main on remote \u2014 never pushed"
+    },
+    {
+      "text": "Attempted PR or surfaced compare-URL fallback",
+      "passed": false,
+      "evidence": "stopped at local commit; no push, no PR"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.2,
+    "passed": 1,
+    "failed": 4,
+    "total": 5
+  }
+}

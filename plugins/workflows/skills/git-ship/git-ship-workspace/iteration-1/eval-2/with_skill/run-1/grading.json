@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Did not commit on the base branch",
+      "passed": true,
+      "evidence": "on fix/ignore-null-entries-in-total"
+    },
+    {
+      "text": "Branch uses fix/ prefix",
+      "passed": true,
+      "evidence": "fix/ignore-null-entries-in-total"
+    },
+    {
+      "text": "Commit follows Conventional Commits (fix)",
+      "passed": true,
+      "evidence": "fix(util): ignore null entries in total"
+    },
+    {
+      "text": "Pushed branch to origin",
+      "passed": true,
+      "evidence": "origin/fix/ignore-null-entries-in-total, upstream set"
+    },
+    {
+      "text": "Attempted PR or surfaced compare-URL fallback",
+      "passed": true,
+      "evidence": "reported draft PR against main via fallback"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  }
+}

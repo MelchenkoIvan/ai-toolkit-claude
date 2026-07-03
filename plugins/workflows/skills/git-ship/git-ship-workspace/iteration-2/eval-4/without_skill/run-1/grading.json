@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Committed the work as a Conventional Commit",
+      "passed": true,
+      "evidence": "feat: add search helper"
+    },
+    {
+      "text": "Fetched and detected the base branch had advanced",
+      "passed": true,
+      "evidence": "noticed origin/main ahead"
+    },
+    {
+      "text": "Auto-rebased onto the base because merge was conflict-free (no prompt)",
+      "passed": false,
+      "evidence": "chose not to sync; divergence left at 1 1"
+    },
+    {
+      "text": "Branch is now 0 commits behind base (synced)",
+      "passed": false,
+      "evidence": "divergence 1 1 \u2014 still behind"
+    },
+    {
+      "text": "Pushed the synced branch",
+      "passed": false,
+      "evidence": "did not push"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.4,
+    "passed": 2,
+    "failed": 3,
+    "total": 5
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Committed the local work",
+      "passed": true,
+      "evidence": "docs: add feature-branch edit to README"
+    },
+    {
+      "text": "Detected the base advanced AND predicted a conflict",
+      "passed": true,
+      "evidence": "rev-list 1 1; merge-tree exit 1"
+    },
+    {
+      "text": "Did NOT attempt/resolve the rebase itself",
+      "passed": true,
+      "evidence": "no rebase started; dry-run only"
+    },
+    {
+      "text": "Did NOT push \u2014 handed control back",
+      "passed": true,
+      "evidence": "feat/edit-readme absent from remote"
+    },
+    {
+      "text": "Asked the user how to proceed (offered options)",
+      "passed": true,
+      "evidence": "posed question with rebase/merge/ship-as-is options"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  }
+}

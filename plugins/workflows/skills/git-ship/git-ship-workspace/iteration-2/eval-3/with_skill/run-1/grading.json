@@ -1,0 +1,25 @@
+{
+  "expectations": [
+    {
+      "text": "Stayed on existing feat/user-profile branch",
+      "passed": true,
+      "evidence": "no new branch"
+    },
+    {
+      "text": "Conventional Commit",
+      "passed": true,
+      "evidence": "feat(profile): add avatar url helper"
+    },
+    {
+      "text": "Pushed to origin",
+      "passed": true,
+      "evidence": "f43f101..04bef7b"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 3,
+    "failed": 0,
+    "total": 3
+  }
+}

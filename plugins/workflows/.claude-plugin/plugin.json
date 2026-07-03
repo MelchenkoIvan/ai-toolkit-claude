@@ -1,7 +1,7 @@
 {
   "name": "workflows",
-  "version": "0.1.0",
-  "description": "Developer workflow automation — create custom Claude Code agents.",
+  "version": "0.2.0",
+  "description": "Developer workflow automation — create custom Claude Code agents and ship git changes end-to-end (branch, Conventional Commit, push, PR).",
   "author": {
     "name": "Ivan Melchenko & Andrei Rabeshka",
     "url": "https://github.com/MelchenkoIvan"
@@ -9,14 +9,14 @@
   "homepage": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "repository": "https://github.com/MelchenkoIvan/ai-toolkit-claude",
   "license": "MIT",
-  "keywords": ["productivity", "workflows", "developer", "automation", "agents"],
+  "keywords": ["productivity", "workflows", "developer", "automation", "agents", "git", "commit", "pull-request"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Workflows",
-    "shortDescription": "Create custom Claude Code agents.",
-    "longDescription": "Developer workflow automation skills: scaffold and refine custom Claude Code agent definitions.",
+    "shortDescription": "Create custom Claude Code agents and ship git changes end-to-end.",
+    "longDescription": "Developer workflow automation skills: scaffold and refine custom Claude Code agent definitions, and ship working-tree changes from dirty tree to open PR (branch naming, Conventional Commits, base-branch sync, push, PR/MR).",
     "developerName": "Ivan Melchenko & Andrei Rabeshka",
     "category": "Productivity",
-    "capabilities": ["Write", "Read"]
+    "capabilities": ["Write", "Read", "Bash"]
   }
 }
