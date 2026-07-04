@@ -54,6 +54,12 @@ earlier stages' outputs plus the diff:
 }
 ```
 
+When the `feature-pipeline` orchestrator ran the task across **parallel lanes**,
+the `diff` is the **merged** result of all lanes and the `change_summary` may be
+a roll-up of several lane summaries. Review the merged diff as one change — your
+scope and rubric are unchanged; there is simply more than one author's work in
+the hunks.
+
 **The diff is required.** You have no `Bash` and cannot compute it yourself.
 If the input has no diff, do not review whole files and guess what changed —
 that produces findings about pre-existing code and misses the actual change.
@@ -86,6 +92,10 @@ Score the change on these dimensions — every finding maps to one:
    weakens or deletes assertions, skips tests, or lowers a coverage threshold
    so the suite passes is a 🔴 finding — on a retry attempt, the pressure to
    "make tests green" lands exactly here.
+   In a TDD run the tests were written *before* the implementation, so they
+   should encode the task's acceptance criteria directly; a diff whose tests
+   merely mirror the implementation (added after the fact to chase coverage) is
+   a 🟡 finding.
 5. **Security smells.** Secrets or credentials in the diff, injection risks
    (including untrusted input flowing into LLM/interpreter calls),
    unvalidated input at trust boundaries, sensitive data in logs, disabled
