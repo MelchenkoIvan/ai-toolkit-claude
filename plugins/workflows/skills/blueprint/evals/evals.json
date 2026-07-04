@@ -1,0 +1,48 @@
+{
+  "skill_name": "blueprint",
+  "description": "Behavior evals — given requirements, does the skill produce a contract-compliant backlog plus an architecture document, and refine an existing backlog without clobbering shipped work?",
+  "evals": [
+    {
+      "id": 1,
+      "name": "cold-decompose-from-prd",
+      "prompt": "Break this PRD down into a development backlog and an architecture document.",
+      "expected_output": "A backlog/ tree with features/NN-<slug>/tasks/NN-<slug>.md task files, each carrying YAML frontmatter (id, status, priority, estimate, depends_on, paths, source), a Description, and Given/When/Then acceptance criteria; plus backlog/ARCHITECTURE.md with mermaid and backlog/BACKLOG.md roll-up.",
+      "files": ["docs/Product_Foundry_PRD.md"],
+      "assertions": [
+        { "text": "Every task file has YAML frontmatter with all 7 keys: id, status, priority, estimate, depends_on, paths, source", "passed": null, "evidence": "" },
+        { "text": "Task ids are feature-scoped and unique (F<NN>-T<NN>)", "passed": null, "evidence": "" },
+        { "text": "Every task has a status value (todo | in-progress | done)", "passed": null, "evidence": "" },
+        { "text": "Acceptance criteria use Given/When/Then, one scenario per behavior path", "passed": null, "evidence": "" },
+        { "text": "Folder layout is backlog/features/NN-<slug>/tasks/NN-<slug>.md (adaptive depth honored)", "passed": null, "evidence": "" },
+        { "text": "backlog/ARCHITECTURE.md exists and contains at least one mermaid diagram", "passed": null, "evidence": "" },
+        { "text": "backlog/BACKLOG.md exists with a status roll-up", "passed": null, "evidence": "" },
+        { "text": "Requirements the source is silent on are flagged as 'to gather', not invented", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "groom-existing-backlog",
+      "prompt": "A new requirement came in — add a Blog/Insights section and a German language option. Update the backlog.",
+      "expected_output": "New features/tasks appended with fresh ids; existing tasks keep their ids; the done task is untouched; BACKLOG.md roll-up refreshed. Nothing regenerated.",
+      "files": ["fixture backlog with one done task and one todo task"],
+      "assertions": [
+        { "text": "Existing task ids are preserved (no renumbering)", "passed": null, "evidence": "" },
+        { "text": "The done task file is byte-for-byte unchanged", "passed": null, "evidence": "" },
+        { "text": "New work is appended as new features/tasks with new ids", "passed": null, "evidence": "" },
+        { "text": "BACKLOG.md status roll-up is updated to include the new tasks", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "groom-under-regeneration-pressure",
+      "prompt": "This backlog is a mess — regenerate it cleanly and completely from the PRD (and add the new Blog section + German).",
+      "expected_output": "Despite the 'regenerate from scratch' framing, the done task is preserved verbatim and its id is kept; new work is appended, not rebuilt over shipped tasks.",
+      "files": ["fixture backlog with one done task", "docs/Product_Foundry_PRD.md"],
+      "assertions": [
+        { "text": "The done task remains byte-for-byte identical despite the regeneration request", "passed": null, "evidence": "" },
+        { "text": "Its status stays 'done' and its id is preserved", "passed": null, "evidence": "" },
+        { "text": "The skill regenerates around shipped work rather than deleting it", "passed": null, "evidence": "" }
+      ]
+    }
+  ]
+}

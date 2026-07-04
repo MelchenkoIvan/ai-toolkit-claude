@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "workflows",
-      "description": "Developer workflow automation — create agents, ship git changes (branch, commit, push, PR), and implement, test + review features via stack-aware developer, tester and reviewer agents with React/.NET conventions and universal coding principles.",
+      "description": "Developer workflow automation — turn requirements into a structured backlog, create agents, ship git changes (branch, commit, push, PR), and implement, test + review features via stack-aware developer, tester and reviewer agents with React/.NET conventions and universal coding principles.",
       "source": "./plugins/workflows",
       "category": "productivity"
     },
