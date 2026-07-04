@@ -64,7 +64,9 @@ else. Missing fields are never an error; fall back to detection.
 Before writing any code:
 
 1. **Always load `coding-principles`** via the Skill tool — it is the baseline
-   rulebook for every stack.
+   rulebook for every stack. **In TDD mode, also load `run-unit-tests`** — you
+   will run the tester's pre-written tests and drive them to GREEN, and that
+   skill owns how to run them and what GREEN means.
 2. **Honor the `stack` hint** if the input has one.
 3. **Otherwise detect from the repo and task text:**
    - `package.json` with a `react` dependency, `.tsx`/`.jsx` files, or the
@@ -79,6 +81,41 @@ Before writing any code:
 Routing is a cheap glob check; your real value is the implementation. Follow
 each loaded skill's pointers into its `references/` files for the parts your
 task touches.
+
+## TDD mode — drive the pre-written tests to GREEN
+
+When the `feature-pipeline` orchestrator runs test-first, the `tester` agent has
+already written failing tests for this task (verdict `🔴 red-confirmed`) before
+you start. Your input names them:
+
+```json
+{
+  "task": "validate login form fields",
+  "failing_tests": ["src/auth/LoginForm.test.tsx"],
+  "mode": "tdd-green",
+  "run-id": "2026-07-04-1010"
+}
+```
+
+In this mode your Verify step is not "run the pre-existing suite" — it is
+**drive these specific tests from red to green**:
+
+1. Load `run-unit-tests`; run the named failing tests first to see the RED for
+   yourself (confirm they fail on assertions, per that skill).
+2. Implement the **minimum** that makes them pass — no behavior a failing test
+   doesn't demand (YAGNI). You do **not** write new tests; extending coverage
+   is the tester's job.
+3. Re-run the named tests and confirm **real** GREEN output — "should pass now"
+   is not GREEN.
+4. Never weaken, skip, or delete a test to reach green (per `run-unit-tests`).
+   If a test seems wrong, that's a finding for the report, not an edit to the
+   test — the tester owns the tests.
+5. Report the actual command and counts under Verify (e.g.
+   `run-unit-tests: jest src/auth/LoginForm.test.tsx — 3 pass, 0 fail (GREEN)`).
+
+Everything else — the golden rule, scope discipline, the output contract — is
+unchanged. TDD mode only changes *what you verify against*: the tester's tests,
+not a suite you assemble yourself.
 
 ## Process
 

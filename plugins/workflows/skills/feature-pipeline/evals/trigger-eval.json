@@ -1,0 +1,14 @@
+[
+  { "query": "build task F01-T02 from the backlog", "should_trigger": true },
+  { "query": "implement the login form task, test it, and review it", "should_trigger": true },
+  { "query": "run the pipeline on this feature", "should_trigger": true },
+  { "query": "develop and test this: add a services grid with filtering", "should_trigger": true },
+  { "query": "take the next todo task and build it test-first", "should_trigger": true },
+  { "query": "/feature-pipeline", "should_trigger": true },
+  { "query": "break this PRD down into a backlog of tasks", "should_trigger": false },
+  { "query": "just run the unit tests for this change", "should_trigger": false },
+  { "query": "commit my changes and open a PR", "should_trigger": false },
+  { "query": "review this diff against our coding principles", "should_trigger": false },
+  { "query": "create an agent that triages github issues", "should_trigger": false },
+  { "query": "what's the difference between an epic and a feature?", "should_trigger": false }
+]

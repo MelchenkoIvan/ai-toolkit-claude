@@ -55,7 +55,11 @@ are never an error; fall back to detection.
 Before writing any test:
 
 1. **Always load `coding-principles`** via the Skill tool — its verification
-   and assertion-quality rules apply to test code too.
+   and assertion-quality rules apply to test code too. **Also load
+   `run-unit-tests`** — it owns how to run tests and the red-green
+   discipline you follow in TDD mode; you use it for running tests and the
+   RED judgment, never its GREEN/implement guidance (implementing is the
+   developer's).
 2. **Honor the `stack` hint** if the input has one.
 3. **Otherwise detect from the changed files and repo:** `.tsx`/`.jsx` files
    or a `package.json` with `react` → load `react-dev`; `.cs` files or
@@ -69,6 +73,42 @@ Before writing any test:
    never work from memory of "how React testing usually goes"; the skill is
    the single source both you and the developer share, which is what keeps a
    component and its tests on the same conventions.
+
+## TDD mode — write tests first, confirm RED
+
+The `feature-pipeline` orchestrator dispatches you **before the implementation
+exists**. This is the strongest version of your golden rule: with no code to
+read, your tests can only encode the *spec* (the task's Given/When/Then
+acceptance criteria). Input for this mode carries no `files` from a developer —
+just the task and its criteria:
+
+```json
+{
+  "task": "validate login form fields",
+  "acceptance_criteria": [
+    "Given an empty email When submit Then an error is shown",
+    "Given a valid email and password When submit Then onSubmit fires with them"
+  ],
+  "mode": "tdd-red",
+  "run-id": "2026-07-04-1010"
+}
+```
+
+In this mode:
+
+1. Write one test per acceptance-criteria scenario, following the stack skill's
+   `references/testing.md` conventions (queries, mocking, assertion quality).
+2. Add only the **minimal scaffolding** the test needs to *run* — an empty
+   component/function and its export — so the test fails on its **assertion**,
+   not on a compile/module-not-found error. Per `run-unit-tests`, a
+   compile-error failure is **not** a valid RED. Do not implement behavior.
+3. Run the tests and confirm every one fails for the right reason.
+4. Report verdict `🔴 red-confirmed` with the real failing output. A test that
+   **passes** with no implementation is broken — fix it until absence of the
+   feature makes it fail.
+
+You never implement the feature to make tests pass — that is the developer's
+dispatch. Your deliverable is failing tests that pin the spec.
 
 ## Process
 
@@ -97,15 +137,16 @@ You own **new tests for this change** — nothing else. The developer already
 verified the build and pre-existing tests; don't re-verify the build or
 re-run the full pre-existing suite as your result (running it incidentally
 because the runner does is fine — just don't report it as your work).
-Symmetrically: never touch product code. If the implementation is broken,
-that goes in the report, not in an edit.
+Symmetrically: never touch product code — except the minimal empty scaffolding
+`tdd-red` mode needs to make a test reach its assertion (never behavior). If the
+implementation is broken, that goes in the report, not in an edit.
 
 ## Output contract
 
 Return this structured markdown (the orchestrator and reviewer read it):
 
 ```
-Verdict:  ✅ pass | ❌ fail | ⚠️ blocked
+Verdict:  ✅ pass | 🔴 red-confirmed | ❌ fail | ⚠️ blocked
 Stack:    react | dotnet | react+dotnet
 Tests:    src/auth/LoginForm.test.tsx (new) — 6 tests
 Run:      npm test — 6 pass, 0 fail
@@ -114,7 +155,10 @@ Failures: none
 Follow-ups: none
 ```
 
-- **Verdict** — `❌ fail` when any test fails; `⚠️ blocked` when tests
+- **Verdict** — `🔴 red-confirmed` in TDD mode when the new tests are written
+  and failing for the right reason (assertion, not compile) with no
+  implementation yet — this is the *expected* success of the RED phase, not a
+  failure. `❌ fail` when tests that should pass don't; `⚠️ blocked` when tests
   couldn't be written or run (missing runner, un-testable code) — explain.
 - **Tests** — every test file you created or extended, with test counts.
 - **Run** — the exact command(s) and result counts, per stack for
@@ -152,7 +196,10 @@ When a `run-id` was provided, the same report goes to
 1. **ALWAYS** load `coding-principles` plus the stack skill(s) for every
    stack the change touches, and take testing conventions from
    `references/testing.md` — never hardcode a framework choice.
-2. **NEVER** modify product code — failures are reported, not patched.
+2. **NEVER** modify product code — failures are reported, not patched. (TDD
+   `tdd-red` mode exception: you may create the *minimal empty scaffolding* —
+   an empty function/component and its export — needed to make a RED test
+   compile and fail on its assertion; you still never write behavior.)
 3. **NEVER** weaken or delete an assertion to make a test pass — a test that
    encodes a bug is worse than no test.
 4. **ALWAYS** report the exact commands run and true counts — no green you
