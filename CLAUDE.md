@@ -35,7 +35,7 @@ ai-toolkit-claude/
 
 | Plugin | Purpose |
 |--------|---------|
-| `workflows` | Developer automation: create agents, ship git changes (branch/commit/push/PR), implement + test features per stack (React/.NET skills + developer/tester agents) |
+| `workflows` | Developer automation: create agents, ship git changes (branch/commit/push/PR), implement + test + review features per stack (React/.NET skills + developer/tester/reviewer agents) |
 | `ai-migrations` | Platform migration tools |
 
 Add new plugin dir under `plugins/` if none fits. See "Adding a new plugin" below.
