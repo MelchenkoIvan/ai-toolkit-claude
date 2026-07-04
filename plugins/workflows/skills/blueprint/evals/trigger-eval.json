@@ -1,0 +1,17 @@
+[
+  { "query": "break this PRD down into tasks", "should_trigger": true },
+  { "query": "turn these requirements into a backlog before we start building", "should_trigger": true },
+  { "query": "here's a spec — what should we build? plan the work into features and tasks", "should_trigger": true },
+  { "query": "create a task list with acceptance criteria from this design doc", "should_trigger": true },
+  { "query": "groom the backlog, the requirements changed", "should_trigger": true },
+  { "query": "decompose this feature description into epics and stories with given/when/then", "should_trigger": true },
+  { "query": "/blueprint", "should_trigger": true },
+  { "query": "I just have these tag descriptions — extract the work items", "should_trigger": true },
+  { "query": "implement the login form from task F01-T02", "should_trigger": false },
+  { "query": "write unit tests for the services grid component", "should_trigger": false },
+  { "query": "review this diff against our coding principles", "should_trigger": false },
+  { "query": "commit my changes and open a PR", "should_trigger": false },
+  { "query": "just add a single task: fix the footer link color", "should_trigger": false },
+  { "query": "what's the difference between an epic and a feature?", "should_trigger": false },
+  { "query": "create an agent that triages github issues", "should_trigger": false }
+]
