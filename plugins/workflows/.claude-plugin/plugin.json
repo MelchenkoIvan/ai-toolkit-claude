@@ -1,6 +1,6 @@
 {
   "name": "workflows",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Developer workflow automation — create custom Claude Code agents, ship git changes end-to-end (branch, Conventional Commit, push, PR), and implement, test + review features via stack-aware developer, tester and reviewer agents backed by React/.NET convention skills and universal coding principles.",
   "author": {
     "name": "Ivan Melchenko & Andrei Rabeshka",
@@ -11,7 +11,6 @@
   "license": "MIT",
   "keywords": ["productivity", "workflows", "developer", "automation", "agents", "git", "commit", "pull-request", "react", "dotnet", "coding-principles", "testing", "code-review"],
   "skills": "./skills/",
-  "agents": "./agents/",
   "interface": {
     "displayName": "Workflows",
     "shortDescription": "Create agents, ship git changes end-to-end, and implement, test + review features with stack-aware conventions.",
