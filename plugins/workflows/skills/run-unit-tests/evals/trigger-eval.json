@@ -1,0 +1,13 @@
+[
+  { "query": "run the unit tests for this change", "should_trigger": true },
+  { "query": "run the tests and tell me if they pass", "should_trigger": true },
+  { "query": "does this test fail yet? I haven't written the code", "should_trigger": true },
+  { "query": "make the failing tests pass", "should_trigger": true },
+  { "query": "check the tests are green before we merge", "should_trigger": true },
+  { "query": "/run-unit-tests", "should_trigger": true },
+  { "query": "write unit tests for the LoginForm component", "should_trigger": false },
+  { "query": "what testing library does react-dev recommend?", "should_trigger": false },
+  { "query": "break this PRD down into tasks", "should_trigger": false },
+  { "query": "commit my changes and open a PR", "should_trigger": false },
+  { "query": "review this diff against our coding principles", "should_trigger": false }
+]
