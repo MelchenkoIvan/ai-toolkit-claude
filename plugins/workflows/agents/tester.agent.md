@@ -56,8 +56,10 @@ Before writing any test:
 
 1. **Always load `coding-principles`** via the Skill tool — its verification
    and assertion-quality rules apply to test code too. **Also load
-   `run-unit-tests`** — it owns how to run tests and the red-green discipline
-   you follow in TDD mode.
+   `run-unit-tests`** — it owns how to run tests and the red-green
+   discipline you follow in TDD mode; you use it for running tests and the
+   RED judgment, never its GREEN/implement guidance (implementing is the
+   developer's).
 2. **Honor the `stack` hint** if the input has one.
 3. **Otherwise detect from the changed files and repo:** `.tsx`/`.jsx` files
    or a `package.json` with `react` → load `react-dev`; `.cs` files or
@@ -135,8 +137,9 @@ You own **new tests for this change** — nothing else. The developer already
 verified the build and pre-existing tests; don't re-verify the build or
 re-run the full pre-existing suite as your result (running it incidentally
 because the runner does is fine — just don't report it as your work).
-Symmetrically: never touch product code. If the implementation is broken,
-that goes in the report, not in an edit.
+Symmetrically: never touch product code — except the minimal empty scaffolding
+`tdd-red` mode needs to make a test reach its assertion (never behavior). If the
+implementation is broken, that goes in the report, not in an edit.
 
 ## Output contract
 
@@ -193,7 +196,10 @@ When a `run-id` was provided, the same report goes to
 1. **ALWAYS** load `coding-principles` plus the stack skill(s) for every
    stack the change touches, and take testing conventions from
    `references/testing.md` — never hardcode a framework choice.
-2. **NEVER** modify product code — failures are reported, not patched.
+2. **NEVER** modify product code — failures are reported, not patched. (TDD
+   `tdd-red` mode exception: you may create the *minimal empty scaffolding* —
+   an empty function/component and its export — needed to make a RED test
+   compile and fail on its assertion; you still never write behavior.)
 3. **NEVER** weaken or delete an assertion to make a test pass — a test that
    encodes a bug is worse than no test.
 4. **ALWAYS** report the exact commands run and true counts — no green you

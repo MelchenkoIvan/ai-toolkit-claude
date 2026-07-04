@@ -84,6 +84,17 @@ its own worktree, runs two dispatches:
 2. **Developer (GREEN).** Dispatch the `developer` agent with `mode:
    "tdd-green"`, the task, the lane's owned `paths`, `failing_tests` from the
    tester, and the `run-id`. Expect the tests driven to real GREEN.
+3. **Commit the lane.** Once the developer reports GREEN, commit the lane's
+   code and tests on its branch from inside the worktree
+   (`git -C <lane-worktree> add -A && git -C <lane-worktree> commit -m
+   "feat: <task> (lane NN)"`). This step is mandatory: the developer and
+   tester only *write* files — they never commit — so their work sits as
+   uncommitted changes inside the isolated lane worktree. `git merge` in §4
+   carries only committed history; without this commit the merge integrates
+   nothing and §6's worktree removal deletes the work. Then copy the lane's
+   `.pipeline-artifacts/<run-id>/lane-NN/` directory from the worktree back
+   into the main repo's `.pipeline-artifacts/<run-id>/` so the consolidated
+   artifact tree survives worktree cleanup.
 
 Each dispatch writes its artifact under `.pipeline-artifacts/<run-id>/lane-NN/`
 (`test-report.md`, `change-summary.md`) — the agents already do this when given
@@ -94,10 +105,11 @@ collide.
 
 Once every lane is GREEN:
 
-1. **Merge** each lane branch into the integration branch. Because lanes own
-   disjoint files, merges are conflict-free by construction. If a merge *does*
-   conflict, the ownership plan was imperfect — serialize the conflicting lanes
-   (re-run one on top of the other's result) rather than force-resolving.
+1. **Merge** each lane branch — now carrying its committed code and tests
+   (§3) — into the integration branch. Because lanes own disjoint files,
+   merges are conflict-free by construction. If a merge *does* conflict, the
+   ownership plan was imperfect — serialize the conflicting lanes (re-run one
+   on top of the other's result) rather than force-resolving.
 2. **Full suite.** On the integration branch, load `run-unit-tests` and run the
    **full** test suite once. A failure here (a cross-lane interaction the
    per-lane runs missed) routes back as a developer retry (§5).
@@ -139,7 +151,9 @@ On `✅ approve`:
 Every worktree you create in §2 must be removed in §6, on **every** exit path —
 success, blocked, or error. Orphaned worktrees and `pipeline/<run-id>/lane-NN`
 branches are litter. If a run aborts mid-flight, remove the worktrees you created
-before reporting.
+before reporting. Never remove a lane's worktree until §3's commit and artifact
+copy-back for that lane have run — removing first discards the only copy of the
+lane's work.
 
 ## Report
 
