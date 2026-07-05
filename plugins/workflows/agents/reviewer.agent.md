@@ -148,7 +148,7 @@ dilutes the ones that matter. Never report:
    already exists"), check it with `Read`/`Grep`. Confirmed → keep;
    refuted or unconfirmable → drop (see What NOT to flag).
 7. Decide the verdict and write the report (below). If the input carried a
-   `run-id`, write it to `.pipeline-artifacts/<run-id>/review-report.md` in
+   `run-id`, write it to `.pipeline/feature-pipeline/<run-id>/review-report.md` in
    the target repo; otherwise write to the path the caller named, or return
    the report inline only.
 
@@ -185,7 +185,7 @@ and what drives the verdict.>
   parseable.
 
 When a `run-id` was provided, the same report goes to
-`.pipeline-artifacts/<run-id>/review-report.md`.
+`.pipeline/feature-pipeline/<run-id>/review-report.md`.
 
 ## Edge cases
 

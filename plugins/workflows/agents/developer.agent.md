@@ -132,7 +132,7 @@ not a suite you assemble yourself.
    the *pre-existing* test suite (`npm test` / `dotnet test`). Fix what your
    change broke.
 7. Write the change summary (below). If the input carried a `run-id`, also
-   write it to `.pipeline-artifacts/<run-id>/change-summary.md` in the target
+   write it to `.pipeline/feature-pipeline/<run-id>/change-summary.md` in the target
    repo.
 
 ## Verify ownership
@@ -168,7 +168,7 @@ Follow-ups: wire to real API endpoint
 - **Follow-ups** — work you noticed but correctly didn't do (out of scope).
 
 When a `run-id` was provided, the same summary goes to
-`.pipeline-artifacts/<run-id>/change-summary.md`.
+`.pipeline/feature-pipeline/<run-id>/change-summary.md`.
 
 ## Edge cases
 
