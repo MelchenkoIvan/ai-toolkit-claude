@@ -59,10 +59,10 @@ Set a `run-id` (`YYYY-MM-DD-HHMM`). Everything below writes under
 `.pipeline/feature-pipeline/<run-id>/`.
 
 **Detect shipping intent.** Note whether the invocation asks to ship — it
-contains a ship phrase ("and open a PR", "open a pr", "ship it", "ship this",
-"and push", "raise an MR", "raise a PR") or an explicit `--ship` flag. Record
-this now; §6 uses it to decide whether to *run* `git-ship` or merely *offer* it.
-Absent any such signal, the default is offer-only.
+contains a ship phrase, matched case-insensitively ("open a PR", "ship it",
+"ship this", "and push", "raise an MR", "raise a PR"), or an explicit `--ship`
+flag. Record this now; §6 uses it to decide whether to *run* `git-ship` or merely
+*offer* it. Absent any such signal, the default is offer-only.
 
 **Ensure artifacts are git-ignored.** Before writing any artifact, make sure the
 repo ignores the artifact tree — otherwise `git-ship`'s `git add -A` would sweep
@@ -92,12 +92,17 @@ Decide whether the task splits into independent parallel **lanes**:
   define one lane per set, and define any **shared** interfaces/types they all
   depend on **up front**, in the plan, so no lane invents a conflicting version.
   Write `plan.md` with the lanes, each lane's owned paths, and the shared
-  interfaces. Create an **integration branch** off the current branch, and one
-  **git worktree per lane** branched off it:
+  interfaces. There is **no integration branch** — the main repo stays on the
+  starting branch for the whole run and never checks anything else out. Create
+  one **git worktree per lane**, each branched off the current branch:
 
   ```bash
-  git worktree add -b pipeline/<run-id>/lane-01 ../wt-<run-id>-lane-01 <integration-branch>
+  git worktree add -b pipeline/<run-id>/lane-01 ../wt-<run-id>-lane-01 HEAD
   ```
+
+  Because each lane owns a disjoint set of files, §4 reassembles their combined
+  work by restoring each lane's owned paths into the main working tree — there is
+  no merge, so no branch to merge onto.
 
 ## 3. Run each lane — test-first (RED → GREEN)
 
@@ -125,7 +130,8 @@ together). Each lane, in its own worktree, runs three steps:
    (`git -C <lane-worktree> add -A && git -C <lane-worktree> commit -m
    "feat: <task> (lane NN)"`). This is mandatory: the developer and tester only
    *write* files, so their work sits uncommitted inside the isolated worktree,
-   and `git merge` in §4 carries only committed history. Then copy the lane's
+   and §4's reassembly (`git restore --source=<lane-branch> --worktree`) carries
+   only committed history. Then copy the lane's
    `.pipeline/feature-pipeline/<run-id>/lane-NN/` directory from the worktree
    back into the main repo so the consolidated artifact tree survives worktree
    cleanup.
@@ -150,20 +156,37 @@ test report, the diff file, and the `run-id`. It writes
 `.pipeline/feature-pipeline/<run-id>/review-report.md`. (Staging is harmless and
 reversible — `git-ship` re-runs `git add -A` in §6.)
 
-**Multiple lanes.** Once every lane is GREEN:
+**Multiple lanes.** Once every lane is GREEN, reassemble their work in the main
+working tree — the main repo never left the starting branch, so there is no merge
+and no branch to switch to:
 
-1. **Merge** each lane branch — now carrying its committed code and tests (§3) —
-   into the integration branch. Because lanes own disjoint files, merges are
-   conflict-free by construction. If a merge *does* conflict, the ownership plan
-   was imperfect — serialize the conflicting lanes (re-run one on top of the
-   other's result) rather than force-resolving.
-2. **Full suite.** On the integration branch, load `run-unit-tests` and run the
-   **full** test suite once. A failure here (a cross-lane interaction the
-   per-lane runs missed) routes back as a developer retry (§5).
-3. **Review.** Compute the merged diff
-   (`git diff <base>...<integration-branch> > .pipeline/feature-pipeline/<run-id>/merged.diff`)
-   and dispatch the `reviewer` agent with the task, the roll-up change summary,
-   the test reports, the diff file, and the `run-id`. It writes
+1. **Reassemble.** From the main repo, restore each lane's committed **owned
+   paths** into the working tree:
+
+   ```bash
+   git restore --source=pipeline/<run-id>/lane-01 --worktree -- <lane-01 owned paths>
+   # repeat per lane
+   ```
+
+   Because lanes own disjoint paths, the restores compose without conflict and
+   leave the combined change as uncommitted edits on the starting branch. If two
+   lanes' owned paths overlap (an imperfect ownership plan), the second restore
+   would clobber the first — serialize those lanes (re-run one on top of the
+   other's result) rather than letting the paths overlap.
+2. **Full suite.** In the main working tree — now holding every lane's combined
+   change — load `run-unit-tests` and run the **full** test suite once. A failure
+   here (a cross-lane interaction the per-lane runs missed) routes back as a
+   developer retry (§5).
+3. **Review.** Stage and diff so new files are included, then hand the reviewer
+   that diff:
+
+   ```bash
+   git add -A                                # safe: .pipeline/ is git-ignored (§1)
+   git diff --cached > .pipeline/feature-pipeline/<run-id>/merged.diff
+   ```
+
+   Dispatch the `reviewer` agent with the task, the roll-up change summary, the
+   test reports, the diff file, and the `run-id`. It writes
    `.pipeline/feature-pipeline/<run-id>/review-report.md`.
 
 ## 5. Retry loop
@@ -174,9 +197,9 @@ On a red review (`❌ request changes`) or a failing full suite:
   developer using that agent's existing **re-entry contract** (`attempt`,
   `previous_summary`, `test_failures`, `review_findings`) — it fixes the specific
   failures rather than re-implementing.
-- Re-run that lane's tests to green, re-merge (multi lane), re-run the full suite
-  (multi lane), and re-review (the reviewer checks each prior finding, then
-  sweeps for regressions).
+- Re-run that lane's tests to green, re-restore that lane's owned paths (multi
+  lane), re-run the full suite (multi lane), and re-review (the reviewer checks
+  each prior finding, then sweeps for regressions).
 - **Cap: 3 attempts per lane.** After the third, stop that lane and report
   `❌ blocked` with the artifacts so the human can take over.
 
@@ -190,20 +213,16 @@ On `✅ approve`:
 2. If the task came from `backlog/`, flip its frontmatter `status` to `done`
    (this edits a tracked file, so it rides along in the eventual commit —
    desired). Leave a free-text task alone.
-3. **Land the change as a dirty working tree.**
-   - **Single lane:** the working tree already holds the uncommitted change —
-     nothing to collapse.
-   - **Multiple lanes:** from the main repo, still on the user's starting branch,
-     bring the integration result into the working tree as uncommitted changes,
-     then tear down all internal branches and worktrees:
-     ```bash
-     git restore --source=<integration-branch> --worktree -- .
-     git worktree remove ../wt-<run-id>-lane-01        # repeat per lane
-     git branch -D pipeline/<run-id>/lane-01           # repeat per lane
-     git branch -D <integration-branch>
-     ```
-   Because the starting branch never moved during the run, the restore is a clean
-   overwrite, not a merge. Confirm nothing internal remains:
+3. **Confirm the dirty working tree and tear down lane plumbing.** By now the
+   approved change already sits as uncommitted edits on the starting branch — a
+   single lane wrote it there directly (§3); a multi-lane run reassembled it there
+   (§4). There is nothing to collapse. For a **multi-lane** run, remove the lane
+   worktrees and delete the lane branches (a single-lane run created neither):
+   ```bash
+   git worktree remove ../wt-<run-id>-lane-01        # repeat per lane
+   git branch -D pipeline/<run-id>/lane-01           # repeat per lane
+   ```
+   Then confirm nothing internal remains:
    ```bash
    git worktree list ; git branch --list 'pipeline/<run-id>/*'
    ```
@@ -220,13 +239,14 @@ On `✅ approve`:
 ## Worktree lifecycle (multi-lane only)
 
 Single-lane runs create no worktree or branch — there is nothing to clean up.
-Multi-lane runs must remove every worktree and delete every
-`pipeline/<run-id>/lane-NN` and the integration branch they created, on **every**
-exit path — success, blocked, or error. The collapse + teardown in §6 step 3 is
-that cleanup on the success path; on an aborted or blocked run, remove the
-worktrees and delete the branches you created before reporting. Never remove a
-lane's worktree until its §3 commit and artifact copy-back have run — removing
-first discards the only copy of the lane's work.
+Multi-lane runs create one `pipeline/<run-id>/lane-NN` branch and worktree per
+lane (never an integration branch — the main repo stays on the starting branch).
+Every one of them must be removed on **every** exit path — success, blocked, or
+error. The teardown in §6 step 3 is that cleanup on the success path; on an
+aborted or blocked run, remove the worktrees and delete the branches you created
+before reporting. Never remove a lane's worktree until its §3 commit and artifact
+copy-back have run — removing first discards the only copy of the lane's work
+(and §4 needs the commit to restore from).
 
 ## Report
 
@@ -246,13 +266,13 @@ End with a short, actionable summary:
 flowchart TD
     A[Resolve task + detect ship intent<br/>ensure .pipeline/ git-ignored] --> B{Split into lanes?}
     B -->|single lane| S[Working tree:<br/>tester RED → developer GREEN<br/>no commit]
-    B -->|multi lane| P[Worktrees + integration branch:<br/>lanes commit → merge → full suite]
+    B -->|multi lane| P[Per-lane worktrees:<br/>lanes commit → restore owned paths → full suite]
     S --> R[reviewer over working-tree diff]
     P --> R
     R -->|request changes| RT[re-entry to responsible developer]
     RT -->|< 3 attempts| R
     RT -->|3 hit| BL[blocked + artifacts]
-    R -->|approve| F[summary + status done<br/>collapse to dirty tree, delete internal branches]
+    R -->|approve| F[summary + status done<br/>tear down lane worktrees/branches]
     F --> I{Ship intent?}
     I -->|yes| G[invoke git-ship → feat/… branch,<br/>commit, push, draft PR → report link]
     I -->|no| O[report dirty tree + offer /git-ship]
@@ -268,8 +288,8 @@ flowchart TD
   developer; report it rather than implementing blind.
 - **Repo has no runner:** the pipeline degrades to implement + build-verify +
   review (no GREEN gate) and says so — never fakes a green run.
-- **Unrelated uncommitted edits at start (multi lane):** the §6 collapse
-  overwrites paths from the integration result; if the starting tree already had
-  unrelated uncommitted changes, warn before overwriting.
+- **Unrelated uncommitted edits at start (multi lane):** §4 restores each lane's
+  owned paths over the working tree; if the starting tree already had unrelated
+  uncommitted changes to those same paths, warn before overwriting.
 - **Not a git repo:** there is nothing to ship and no `.gitignore` to guarantee —
   report and stop rather than proceeding.
