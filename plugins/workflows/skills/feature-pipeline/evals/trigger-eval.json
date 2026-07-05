@@ -4,6 +4,7 @@
   { "query": "run the pipeline on this feature", "should_trigger": true },
   { "query": "develop and test this: add a services grid with filtering", "should_trigger": true },
   { "query": "take the next todo task and build it test-first", "should_trigger": true },
+  { "query": "build the newsletter signup task and open a PR", "should_trigger": true },
   { "query": "/feature-pipeline", "should_trigger": true },
   { "query": "break this PRD down into a backlog of tasks", "should_trigger": false },
   { "query": "just run the unit tests for this change", "should_trigger": false },

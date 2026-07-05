@@ -1,43 +1,57 @@
 {
   "skill_name": "feature-pipeline",
-  "description": "Behavior evals — does the orchestrator run test-first (RED before implementation), split a large task into disjoint-ownership parallel lanes (single lane otherwise), integrate + review the merged result, cap retries, and stop at approved review by offering git-ship rather than pushing?",
+  "description": "Behavior evals — does the orchestrator run test-first (RED before implementation), split a large task into disjoint-ownership parallel lanes (single lane otherwise), integrate + review the merged result, cap retries, end with the approved change as an uncommitted working tree (no pipeline-created branch), and hand all git work to git-ship — offering it by default but running it automatically when the request asks to ship?",
   "evals": [
     {
       "id": 1,
       "name": "tdd-order-red-before-green",
       "prompt": "Build task F01-T02 (validate login form fields) from the backlog.",
-      "expected_output": "The tester is dispatched first in tdd-red mode and returns 🔴 red-confirmed (tests failing on assertions, no implementation); only then is the developer dispatched in tdd-green mode to drive those tests green; then the reviewer reviews. Artifacts land under .pipeline-artifacts/<run-id>/.",
+      "expected_output": "The tester is dispatched first in tdd-red mode and returns 🔴 red-confirmed (tests failing on assertions, no implementation); only then is the developer dispatched in tdd-green mode to drive those tests green; then the reviewer reviews. Artifacts land under .pipeline/feature-pipeline/<run-id>/.",
       "files": ["a repo with backlog/features/01-auth/tasks/*F01-T02*.md and a React app"],
       "assertions": [
         { "text": "Tester runs before the developer (tests written before implementation)", "passed": null, "evidence": "" },
         { "text": "Tester returns 🔴 red-confirmed before any implementation exists", "passed": null, "evidence": "" },
         { "text": "Developer is dispatched in tdd-green mode against the tester's failing tests", "passed": null, "evidence": "" },
-        { "text": "A review report is produced under .pipeline-artifacts/<run-id>/review-report.md", "passed": null, "evidence": "" }
+        { "text": "A review report is produced under .pipeline/feature-pipeline/<run-id>/review-report.md", "passed": null, "evidence": "" }
       ]
     },
     {
       "id": 2,
       "name": "parallel-lanes-disjoint-ownership",
       "prompt": "Build the auth module task: it covers a login form, a session store, and password reset.",
-      "expected_output": "The orchestrator plans multiple lanes with non-overlapping owned paths (e.g. login / session / reset), defines shared interfaces up front, runs each lane's tester→developer concurrently in its own worktree, then merges (conflict-free) and does one review. A task that can't be split cleanly falls back to a single lane.",
+      "expected_output": "The orchestrator plans multiple lanes with non-overlapping owned paths (e.g. login / session / reset), defines shared interfaces up front, runs each lane's tester→developer concurrently in its own worktree, then merges (conflict-free) and does one review. After approval it collapses the integration result into an uncommitted working tree on the starting branch and deletes the integration + lane branches and worktrees. A task that can't be split cleanly falls back to a single lane.",
       "files": ["a repo whose auth work spans clearly separable directories"],
       "assertions": [
         { "text": "plan.md defines lanes with non-overlapping owned file sets", "passed": null, "evidence": "" },
         { "text": "Shared interfaces/types are defined before lanes fan out", "passed": null, "evidence": "" },
         { "text": "One review runs over the merged result, not one per lane", "passed": null, "evidence": "" },
-        { "text": "Worktrees are cleaned up on completion", "passed": null, "evidence": "" }
+        { "text": "Worktrees and the integration + lane branches are removed on completion (no pipeline/<run-id>/* branch remains)", "passed": null, "evidence": "" }
       ]
     },
     {
       "id": 3,
-      "name": "stops-at-review-offers-ship",
+      "name": "no-ship-intent-offers-and-leaves-dirty-tree",
       "prompt": "Develop and test this: add a footer newsletter signup, then we're done.",
-      "expected_output": "On an approved review the orchestrator writes pipeline-summary.md, flips the backlog task status to done only if the task came from backlog/, and OFFERS /git-ship — it does not push, commit to a remote, or open a PR on its own.",
+      "expected_output": "On an approved review the orchestrator writes pipeline-summary.md, flips the backlog task status to done only if the task came from backlog/, ends with the change uncommitted on the current branch (no pipeline-created branch), and OFFERS /git-ship — it does not commit, push, branch, or open a PR on its own.",
       "files": ["any small buildable repo"],
       "assertions": [
-        { "text": "Does not push or open a PR automatically", "passed": null, "evidence": "" },
+        { "text": "Does not commit, push, branch, or open a PR automatically", "passed": null, "evidence": "" },
+        { "text": "Ends with the approved change as uncommitted edits on the starting branch (no pipeline-created branch left)", "passed": null, "evidence": "" },
         { "text": "Offers /git-ship as the follow-up", "passed": null, "evidence": "" },
-        { "text": "Writes pipeline-summary.md with the run-id and artifact paths", "passed": null, "evidence": "" }
+        { "text": "Writes pipeline-summary.md with the run-id and artifact paths under .pipeline/feature-pipeline/<run-id>/", "passed": null, "evidence": "" }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ship-intent-runs-git-ship",
+      "prompt": "Build the newsletter signup task and open a PR.",
+      "expected_output": "The orchestrator detects shipping intent from 'open a PR', runs the pipeline, and on approval invokes the git-ship skill (which creates a feat/… branch, commits, pushes, and opens a draft PR) instead of hand-rolling its own branch. Run artifacts stay git-ignored under .pipeline/.",
+      "files": ["any small buildable repo with a remote"],
+      "assertions": [
+        { "text": "Detects shipping intent from the 'open a PR' phrasing", "passed": null, "evidence": "" },
+        { "text": "Invokes git-ship for all git work rather than committing/branching itself", "passed": null, "evidence": "" },
+        { "text": "Ensures .pipeline/ is git-ignored so artifacts are not swept into the PR", "passed": null, "evidence": "" },
+        { "text": "Reports the resulting branch and PR link", "passed": null, "evidence": "" }
       ]
     }
   ]

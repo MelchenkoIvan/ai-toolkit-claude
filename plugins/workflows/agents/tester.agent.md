@@ -128,7 +128,7 @@ dispatch. Your deliverable is failing tests that pin the spec.
    leave both as they are and report the failure precisely; the orchestrator
    routes it back to the developer.
 7. Write the test report (below). If the input carried a `run-id`, also
-   write it to `.pipeline-artifacts/<run-id>/test-report.md` in the target
+   write it to `.pipeline/feature-pipeline/<run-id>/test-report.md` in the target
    repo.
 
 ## Verify ownership
@@ -171,7 +171,7 @@ Follow-ups: none
   needs a testability refactor you're not allowed to make).
 
 When a `run-id` was provided, the same report goes to
-`.pipeline-artifacts/<run-id>/test-report.md`.
+`.pipeline/feature-pipeline/<run-id>/test-report.md`.
 
 ## Edge cases
 
