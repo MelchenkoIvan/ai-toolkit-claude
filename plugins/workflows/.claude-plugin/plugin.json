@@ -1,6 +1,6 @@
 {
   "name": "workflows",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Developer workflow automation — turn requirements (PRD, spec, notes) into a structured backlog and architecture doc, create custom Claude Code agents, ship git changes end-to-end (branch, Conventional Commit, push, PR), implement, test + review features via stack-aware developer, tester and reviewer agents backed by React/.NET convention skills and universal coding principles, and orchestrate a test-first develop→test→review pipeline that drives changes from red to green before review and hands the approved, uncommitted change to git-ship for commit, push, and PR.",
   "author": {
     "name": "Ivan Melchenko & Andrei Rabeshka",

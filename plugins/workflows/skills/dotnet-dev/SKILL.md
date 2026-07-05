@@ -1,5 +1,6 @@
 ---
 name: dotnet-dev
+user-invocable: false
 description: >
   .NET / C# development conventions — project structure, async, dependency
   injection, LINQ, error handling, and xUnit/Moq testing. Use this skill

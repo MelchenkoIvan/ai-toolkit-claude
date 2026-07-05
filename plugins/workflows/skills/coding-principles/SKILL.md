@@ -1,5 +1,6 @@
 ---
 name: coding-principles
+user-invocable: false
 description: >
   Universal, stack-agnostic coding principles — DRY, KISS, YAGNI, naming,
   error handling, and scope discipline — that apply to every implementation

@@ -1,5 +1,6 @@
 ---
 name: react-dev
+user-invocable: false
 description: >
   React + TypeScript development conventions — components, hooks, state,
   styling, and Jest/React Testing Library testing. Use this skill whenever
