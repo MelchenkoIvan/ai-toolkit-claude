@@ -1,7 +1,7 @@
 ---
 name: reviewer
 description: "Use this agent to review a code change against a project rubric and produce a review report. Read-only over the code — it inspects the diff/files and writes exactly one report artifact, never edits the code. Triggers after an implementation + tests land, or when an orchestrator hands off a change for review."
-model: inherit
+model: claude-opus-4-8
 color: blue
 tools: ["Read", "Grep", "Glob", "Write", "Skill"]
 ---
