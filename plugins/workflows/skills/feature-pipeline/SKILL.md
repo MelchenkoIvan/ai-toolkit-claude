@@ -197,9 +197,11 @@ On a red review (`❌ request changes`) or a failing full suite:
   developer using that agent's existing **re-entry contract** (`attempt`,
   `previous_summary`, `test_failures`, `review_findings`) — it fixes the specific
   failures rather than re-implementing.
-- Re-run that lane's tests to green, re-restore that lane's owned paths (multi
-  lane), re-run the full suite (multi lane), and re-review (the reviewer checks
-  each prior finding, then sweeps for regressions).
+- Re-run that lane's tests to green, re-commit the lane in its worktree, then
+  re-restore that lane's owned paths (multi lane), re-run the full suite (multi
+  lane), and re-review (the reviewer checks each prior finding, then sweeps for
+  regressions). The re-restore carries only committed history, so the re-commit
+  is what makes the fix visible to the reassembly.
 - **Cap: 3 attempts per lane.** After the third, stop that lane and report
   `❌ blocked` with the artifacts so the human can take over.
 
